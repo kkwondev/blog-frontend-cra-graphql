@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AppLayout from './components/AppLayout/AppLayout';
+import Header from './components/Header/Header';
 import Categories from './pages/Categories';
 import Category from './pages/Category';
 import Post from './pages/Post';
@@ -12,7 +13,7 @@ function App() {
             <Route path={['/', '/posts', '/post/:slug', '/categories', '/categories/:id']} exact>
                 <AppLayout>
                     <AppLayout.Header>
-                        <p>Header</p>
+                        <Header />
                     </AppLayout.Header>
                     <AppLayout.GnbNav>
                         <p>Nav</p>
