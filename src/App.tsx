@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Categories from './pages/Categories';
+import Category from './pages/Category';
+import Post from './pages/Post';
+import Posts from './pages/Posts';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Switch>
+            <Route path={['/', '/posts', '/post/:slug', '/categories', '/categories/:id']} exact>
+                <Route path={['/', '/posts']} exact>
+                    <Posts />
+                </Route>
+                <Route path="/post/:slug">
+                    <Post />
+                </Route>
+                <Route path="/categories" exact>
+                    <Categories />
+                </Route>
+                <Route path="/categories/:id">
+                    <Category />
+                </Route>
+            </Route>
+        </Switch>
+    );
 }
 
 export default App;
