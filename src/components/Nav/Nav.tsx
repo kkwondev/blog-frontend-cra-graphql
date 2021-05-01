@@ -5,7 +5,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 export interface NavProps {}
 
 // TODO: api connect before dummyData
-const menuDummyData = ['개발', '일', '일기'];
+const menuDummyData = ['개발', '일', '일기', 'test', 'text2'];
 
 function Nav({ match }: RouteComponentProps) {
     return (
@@ -35,8 +35,13 @@ function Nav({ match }: RouteComponentProps) {
 const Block = css`
     width: 1400px;
     margin: 0 auto;
+    @media (max-width: 1400px) {
+        width: 100%;
+    }
     ul {
+        width: 100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         li {
             width: 7rem;
@@ -46,6 +51,10 @@ const Block = css`
             text-align: center;
             font-size: 1.125rem;
             letter-spacing: -1.5px;
+            @media (max-width: 1400px) {
+                width: 5rem;
+                font-size: 1rem;
+            }
             a {
                 width: 100%;
                 height: 100%;
