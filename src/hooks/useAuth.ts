@@ -4,8 +4,8 @@ import { userState } from '../atoms/authState';
 export default function useAuth() {
     const setUser = useSetRecoilState(userState);
 
-    const login = (response: any) => {
-        console.log('bamm');
+    // eslint-disable-next-line camelcase
+    const login = ({ access_token }: any) => {
         // TODO: backend api connet
         setUser({
             email: 'kkwoncokr@naver.com',
@@ -13,7 +13,8 @@ export default function useAuth() {
             photo_url:
                 'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
         });
-        localStorage.setItem('google', `Bearer ${response.access_token}`);
+        // eslint-disable-next-line camelcase
+        localStorage.setItem('google', `Bearer ${access_token}`);
     };
 
     const logout = () => {

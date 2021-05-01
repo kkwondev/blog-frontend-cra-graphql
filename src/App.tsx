@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AppLayout from './components/AppLayout/AppLayout';
 import Header from './components/Header/Header';
+import Nav from './components/Nav';
 import Categories from './pages/Categories';
 import Category from './pages/Category';
 import Post from './pages/Post';
@@ -16,7 +17,7 @@ function App() {
                         <Header />
                     </AppLayout.Header>
                     <AppLayout.GnbNav>
-                        <p>Nav</p>
+                        <Nav />
                     </AppLayout.GnbNav>
                     <AppLayout.Main>
                         <Route path={['/', '/posts']} exact>

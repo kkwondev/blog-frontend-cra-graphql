@@ -9,7 +9,6 @@ import { userState } from '../../atoms/authState';
 
 function Header() {
     const user = useRecoilValue(userState);
-    console.log(user);
     return (
         <div css={headerStyle}>
             <div className="logo">
