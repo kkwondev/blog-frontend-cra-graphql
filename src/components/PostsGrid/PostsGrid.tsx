@@ -6,30 +6,13 @@ import media from '../../lib/styles/media';
 import PostsGridItem from '../PostsGridItem';
 
 function PostsGrid() {
-    const [items, setItems] = useState([
-        {
-            title: 'testtest',
-            content: '가나다라마바사아차다타카치나마바사아',
-            thumnbnail_img:
-                'https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png?w=640',
-            category: '개발',
-            createdAt: '2021-05-04',
-            user: {
-                email: 'kkwoncokr@gmail.com',
-                nickname: '강경원',
-                photo_url:
-                    'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
-            },
-        },
-    ]);
-    // TODO: Post items dummu data
-
-    console.log(items);
-    useEffect(() => {
+    const [items, setItems] = useState<responsePost[]>([]);
+    const Dummydata = (id: number) => {
+        const dataArray = items;
         // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < 40; i++) {
-            console.log('실행하냐?11');
-            items.push({
+        for (let i = id; i < id + 10; i++) {
+            const addData = {
+                id: i,
                 title: `post#${i}`,
                 content: '가나다라마바사아차다타카치나마바사아',
                 thumnbnail_img:
@@ -42,9 +25,30 @@ function PostsGrid() {
                     photo_url:
                         'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
                 },
-            });
+            };
+            dataArray.push(addData);
         }
+        dataArray.map(data => setItems([...items, data]));
+    };
+
+    const onScroll = () => {
+        if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
+            Dummydata(items[items.length - 1].id);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
+    }, [items]);
+
+    useEffect(() => {
+        Dummydata(1);
     }, []);
+    // TODO: Post items dummu data
+
     if (items && items.length === 0) {
         return (
             <div css={empty}>
