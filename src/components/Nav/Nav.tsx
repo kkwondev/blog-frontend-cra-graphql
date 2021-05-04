@@ -59,10 +59,11 @@ const Block = css`
                 width: 100%;
                 height: 100%;
                 display: block;
-                color: #333;
+                color: rgb(134, 142, 150);
             }
         }
         a.active {
+            color: #333;
             font-weight: 600;
             border-bottom: 2px solid #333;
         }
