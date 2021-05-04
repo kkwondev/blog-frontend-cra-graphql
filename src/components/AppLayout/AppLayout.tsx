@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import media from '../../lib/styles/media';
+import palette from '../../lib/styles/palette';
 
 export interface AppLayoutProps {
     children: React.ReactNode;
@@ -42,8 +43,15 @@ const headerStyle = css`
     width: 100%;
     height: 70px;
     position: fixed;
+    z-index: 999;
     display: flex;
     align-items: center;
+    background: rgb(248, 249, 250);
+    border-bottom: 1px solid ${palette.grey[200]};
+    ${media.xlarge} {
+        background: #fff;
+        border-bottom: 1px solid ${palette.grey[300]};
+    }
 `;
 
 const gnbNavStyle = css`

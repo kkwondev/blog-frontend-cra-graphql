@@ -43,7 +43,7 @@ const headerStyle = css`
         a {
             color: #333;
         }
-        @media (max-width: 1400px) {
+        ${media.xlarge} {
             text-align: left;
         }
     }
@@ -52,7 +52,7 @@ const headerStyle = css`
         top: 55%;
         right: 12rem;
         transform: translateY(-50%);
-        @media (max-width: 1400px) {
+        ${media.xlarge} {
             right: 10rem;
         }
     }
