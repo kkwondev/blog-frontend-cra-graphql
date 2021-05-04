@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import React from 'react';
+import media from '../../lib/styles/media';
 
 export interface AppLayoutProps {
     children: React.ReactNode;
@@ -54,7 +55,16 @@ const gnbNavStyle = css`
 `;
 
 const mainStyle = css`
-    width: 1400px;
+    width: 1376px;
     margin: 0 auto;
     padding-top: 3rem;
+    ${media.xlarge} {
+        width: 1024px;
+    }
+    ${media.medium} {
+        width: 768px;
+    }
+    ${media.small} {
+        width: 100%;
+    }
 `;
