@@ -46,7 +46,7 @@ const headerStyle = css`
     z-index: 999;
     display: flex;
     align-items: center;
-    background: rgb(248, 249, 250);
+    background: #fff;
     border-bottom: 1px solid ${palette.grey[200]};
     ${media.xlarge} {
         background: #fff;
