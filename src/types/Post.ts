@@ -11,6 +11,7 @@ export interface requestPost {
 }
 
 export interface responsePost {
+    id: number;
     title: string;
     content: string;
     // eslint-disable-next-line camelcase
