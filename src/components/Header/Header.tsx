@@ -6,6 +6,7 @@ import { FiSearch } from 'react-icons/fi';
 import GoogleLoginButton from '../GoogleLoginButton';
 import CurrentUserInfo from '../CurrentUserInfo';
 import { userState } from '../../atoms/authState';
+import media from '../../lib/styles/media';
 
 function Header() {
     const user = useRecoilValue(userState);
@@ -30,7 +31,7 @@ const headerStyle = css`
     align-items: center;
     justify-content: center;
     position: relative;
-    @media (max-width: 1400px) {
+    ${media.xlarge} {
         width: 100%;
         justify-content: flex-start;
         padding: 0 2rem;

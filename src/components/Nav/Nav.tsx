@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import media from '../../lib/styles/media';
 
 export interface NavProps {}
 
@@ -51,7 +52,7 @@ const Block = css`
             text-align: center;
             font-size: 1.125rem;
             letter-spacing: -1.5px;
-            @media (max-width: 1400px) {
+            ${media.xlarge} {
                 width: 5rem;
                 font-size: 1rem;
             }
