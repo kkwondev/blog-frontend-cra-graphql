@@ -4,9 +4,12 @@ import { responsePost } from '../../types/Post';
 import Empty from '../../assets/images/empty_posts.svg';
 import media from '../../lib/styles/media';
 import PostsGridItem from '../PostsGridItem';
+import PostsGridItemSkeleton from '../PostsGridItemSkeleton';
 
 function PostsGrid() {
     const [items, setItems] = useState<responsePost[]>([]);
+    const [loading, setLoding] = useState(false);
+
     const Dummydata = (id: number) => {
         const dataArray = items;
         // eslint-disable-next-line no-plusplus
@@ -26,6 +29,7 @@ function PostsGrid() {
                         'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
                 },
             };
+            setLoding(false);
             dataArray.push(addData);
         }
         dataArray.map(data => setItems([...items, data]));
@@ -33,7 +37,12 @@ function PostsGrid() {
 
     const onScroll = () => {
         if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
-            Dummydata(items[items.length - 1].id);
+            if (items.length < 30) {
+                setLoding(true);
+                setTimeout(() => {
+                    Dummydata(items[items.length - 1].id);
+                }, 1000);
+            }
         }
     };
 
@@ -60,10 +69,18 @@ function PostsGrid() {
     return (
         <section css={block}>
             <article css={grid}>
-                {items.map((item: responsePost, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <PostsGridItem post={item} key={index} />
-                ))}
+                {items
+                    ? items.map((item: responsePost, index) => (
+                          // eslint-disable-next-line react/no-array-index-key
+                          <PostsGridItem post={item} key={index} />
+                      ))
+                    : // eslint-disable-next-line react/no-array-index-key
+                      Array.from({ length: 10 }).map((_, i) => <PostsGridItemSkeleton key={i} />)}
+                {loading &&
+                    Array.from({ length: 10 }).map((_, i) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <PostsGridItemSkeleton key={i} />
+                    ))}
             </article>
         </section>
     );
