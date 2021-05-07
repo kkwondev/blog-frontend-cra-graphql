@@ -39,7 +39,11 @@ export interface PostProps {
     children: React.ReactNode;
 }
 function Post({ children }: PostProps) {
-    return <section css={postStyle}>{children}</section>;
+    return (
+        <section css={postStyle}>
+            <article className="wrap">{children}</article>
+        </section>
+    );
 }
 
 AppLayout.Header = Header;
@@ -86,13 +90,17 @@ const mainStyle = css`
 `;
 
 const postStyle = css`
-    padding-top: 8rem;
     width: 768px;
     margin: 0 auto;
+    padding-top: 8rem;
+    .wrap {
+        background: ${palette.white};
+        box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    }
     ${media.small} {
         width: 100%;
         // padding: 0 1rem;
-        padding-top: 6rem;
+        // padding-top: 6rem;
         box-sizing: border-box;
     }
 `;
