@@ -11,7 +11,7 @@ export interface PostsGridItemProps {
 
 function PostsGridItem({ post }: PostsGridItemProps) {
     return (
-        <Link to="/" css={card}>
+        <Link to={`post/${post.slug}`} css={card}>
             <div>
                 {post.thumnbnail_img ? (
                     <div className="thumbnail">
