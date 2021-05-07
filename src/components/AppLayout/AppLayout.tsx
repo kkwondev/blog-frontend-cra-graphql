@@ -35,9 +35,17 @@ function Main({ children }: MainProps) {
     return <main css={mainStyle}>{children}</main>;
 }
 
+export interface PostProps {
+    children: React.ReactNode;
+}
+function Post({ children }: PostProps) {
+    return <section css={postStyle}>{children}</section>;
+}
+
 AppLayout.Header = Header;
 AppLayout.GnbNav = GnbNav;
 AppLayout.Main = Main;
+AppLayout.Post = Post;
 
 const headerStyle = css`
     width: 100%;
@@ -74,5 +82,17 @@ const mainStyle = css`
     }
     ${media.small} {
         width: 100%;
+    }
+`;
+
+const postStyle = css`
+    padding-top: 8rem;
+    width: 768px;
+    margin: 0 auto;
+    ${media.small} {
+        width: 100%;
+        padding: 0 1rem;
+        padding-top: 6rem;
+        box-sizing: border-box;
     }
 `;

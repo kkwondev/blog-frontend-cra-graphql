@@ -11,7 +11,7 @@ import Posts from './pages/Posts';
 function App() {
     return (
         <Switch>
-            <Route path={['/', '/posts', '/post/:slug', '/categories', '/categories/:id']} exact>
+            <Route path={['/', '/posts', '/categories', '/categories/:id']} exact>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -23,16 +23,22 @@ function App() {
                         <Route path={['/', '/posts']} exact>
                             <Posts />
                         </Route>
-                        <Route path="/post/:slug">
-                            <Post />
-                        </Route>
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>
-                        <Route path="/categories/:id">
-                            <Category />
-                        </Route>
                     </AppLayout.Main>
+                </AppLayout>
+            </Route>
+            <Route path="/post/:slug">
+                <AppLayout>
+                    <AppLayout.Header>
+                        <Header />
+                    </AppLayout.Header>
+                    <AppLayout.Post>
+                        <Route path="/post/:slug">
+                            <Post />
+                        </Route>
+                    </AppLayout.Post>
                 </AppLayout>
             </Route>
         </Switch>
