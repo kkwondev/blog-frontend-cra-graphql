@@ -1,8 +1,9 @@
 import React from 'react';
+import PostHead from '../../components/PostHead';
 
 // export interface PostProps {}
 function Post() {
-    return <p>postPage</p>;
+    return <PostHead />;
 }
 
 export default Post;

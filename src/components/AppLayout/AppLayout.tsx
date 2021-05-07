@@ -91,7 +91,7 @@ const postStyle = css`
     margin: 0 auto;
     ${media.small} {
         width: 100%;
-        padding: 0 1rem;
+        // padding: 0 1rem;
         padding-top: 6rem;
         box-sizing: border-box;
     }
