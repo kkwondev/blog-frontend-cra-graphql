@@ -14,6 +14,12 @@ function PostHead() {
                 <span>2021년 5월 25일</span>
             </div>
             <TagsGrid />
+            <div className="thumbnail">
+                <img
+                    src="https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png"
+                    alt="post-thumbnail"
+                />
+            </div>
         </div>
     );
 }
@@ -24,8 +30,15 @@ const headBlock = css`
     box-sizing: border-box;
     padding: 1.5rem;
     border-radius: 4px;
-    background: ${palette.white};
-    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    // background: ${palette.white};
+    // box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    .thumbnail {
+        width: 100%;
+        margin-top: 1rem;
+        img {
+            width: 100%;
+        }
+    }
     ${media.small} {
         padding: 1rem;
         text-align: center;
