@@ -17,6 +17,7 @@ function PostsGrid() {
             const addData = {
                 id: i,
                 title: `post#${i}`,
+                slug: `post#${i}`,
                 content: '가나다라마바사아차다타카치나마바사아',
                 thumnbnail_img:
                     'https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png?w=640',

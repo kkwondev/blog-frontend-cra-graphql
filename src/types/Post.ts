@@ -13,6 +13,7 @@ export interface requestPost {
 export interface responsePost {
     id: number;
     title: string;
+    slug: string;
     content: string;
     // eslint-disable-next-line camelcase
     thumnbnail_img?: string;
