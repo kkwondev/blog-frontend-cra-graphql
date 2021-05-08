@@ -4,9 +4,9 @@ import AppLayout from './components/AppLayout/AppLayout';
 import Header from './components/Header/Header';
 import Nav from './components/Nav';
 import Categories from './pages/Categories';
-import Category from './pages/Category';
 import Post from './pages/Post';
 import Posts from './pages/Posts';
+import Write from './pages/Write';
 
 function App() {
     return (
@@ -29,7 +29,7 @@ function App() {
                     </AppLayout.Main>
                 </AppLayout>
             </Route>
-            <Route path="/post/:slug">
+            <Route path={['/post/:slug', '/write']}>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -37,6 +37,9 @@ function App() {
                     <AppLayout.Post>
                         <Route path="/post/:slug">
                             <Post />
+                        </Route>
+                        <Route path="/write" exact>
+                            <Write />
                         </Route>
                     </AppLayout.Post>
                 </AppLayout>

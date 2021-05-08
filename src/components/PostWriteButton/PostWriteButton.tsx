@@ -1,12 +1,15 @@
 import { css } from '@emotion/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 
 function PostWriteButton() {
     return (
-        <div css={PostWriteBtn}>
-            <p>새글 작성</p>
-        </div>
+        <Link to="/write">
+            <div css={PostWriteBtn}>
+                <p>새글 작성</p>
+            </div>
+        </Link>
     );
 }
 
@@ -24,6 +27,7 @@ const PostWriteBtn = css`
     bottom: 2rem;
     right: 2rem;
     box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    cursor: pointer;
     p {
         font-size: 1rem;
         color: ${palette.black};
