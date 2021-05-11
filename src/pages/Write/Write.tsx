@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
+import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
@@ -9,7 +10,7 @@ function Write({ history }: RouteComponentProps) {
     if (!user) {
         history.push('/');
     }
-    return <p>글쓰기 페이지</p>;
+    return <MarkdownEditor />;
 }
 
 export default withRouter(Write);
