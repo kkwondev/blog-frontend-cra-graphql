@@ -1,11 +1,15 @@
-import React from 'react';
+import { css } from '@emotion/react';
+import React, { useState } from 'react';
 import ReactMde, { SaveImageHandler, Suggestion } from 'react-mde';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import * as Showdown from 'showdown';
+import useCreatePost from '../../hooks/useCreatePost';
+import palette from '../../lib/styles/palette';
 
 function MarkdownEditor() {
-    const [value, setValue] = React.useState('**Hello world!!!**');
-    const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>('write');
+    // const [value, setValue] = useState('**Hello world!!!**');
+    const { post, setPost } = useCreatePost();
+    const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
     const loadSuggestions = async (text: string) => {
         return new Promise<Suggestion[]>((accept, reject) => {
@@ -63,10 +67,16 @@ function MarkdownEditor() {
     };
 
     return (
-        <div className="container">
+        <div className="container" css={Markdown}>
             <ReactMde
-                value={value}
-                onChange={setValue}
+                minEditorHeight={1000}
+                value={post.content}
+                onChange={e => {
+                    setPost({
+                        ...post,
+                        content: e,
+                    });
+                }}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={markdown => Promise.resolve(converter.makeHtml(markdown))}
@@ -83,5 +93,47 @@ function MarkdownEditor() {
         </div>
     );
 }
+
+const Markdown = css`
+    min-width: 0px;
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    box-shadow: rgb(0 0 0 / 2%) 0px 0px 8px;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    box-sizing: border-box;
+    textarea {
+        resize: none;
+    }
+    .mde-header {
+        width: auto;
+        background: ${palette.white};
+        padding: 0.5rem 0;
+        flex-wrap: unset;
+        overflow-x: auto;
+    }
+    .mde-tabs button {
+        display: none;
+    }
+    .mde-header .svg-icon {
+        width: 1rem;
+        height: 1rem;
+        color: ${palette.grey[400]};
+    }
+    .react-mde {
+        border: none;
+    }
+    .mde-textarea-wrapper textarea.mde-text {
+        min-height: 0px;
+        flex: 1 1 0%;
+        font-size: 1.125rem;
+        line-height: 1.5;
+        color: rgb(52, 58, 64);
+    }
+`;
 
 export default MarkdownEditor;
