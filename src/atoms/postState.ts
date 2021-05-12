@@ -6,7 +6,7 @@ export interface PostState {
     // eslint-disable-next-line camelcase
     thumnbnail_img: string;
     categoryName: string;
-    tags: [];
+    tags: string[];
     user: string;
 }
 
