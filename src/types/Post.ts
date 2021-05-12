@@ -1,13 +1,13 @@
 import { User } from './User';
 
 export interface requestPost {
-    title: string;
-    content: string;
+    title: string | null;
+    content: string | null;
     // eslint-disable-next-line camelcase
-    thumnbnail_img?: string;
-    categoryName: string;
+    thumnbnail_img?: string | null;
+    categoryName: string | null;
     tags: string[];
-    user: User;
+    user: User | null;
 }
 
 export interface responsePost {

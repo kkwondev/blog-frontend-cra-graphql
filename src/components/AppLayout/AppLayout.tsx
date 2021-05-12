@@ -45,11 +45,18 @@ function Post({ children }: PostProps) {
         </section>
     );
 }
+export interface WriteProps {
+    children: React.ReactNode;
+}
+function Write({ children }: WriteProps) {
+    return <div css={writeStyle}>{children}</div>;
+}
 
 AppLayout.Header = Header;
 AppLayout.GnbNav = GnbNav;
 AppLayout.Main = Main;
 AppLayout.Post = Post;
+AppLayout.Write = Write;
 
 const headerStyle = css`
     width: 100%;
@@ -103,4 +110,11 @@ const postStyle = css`
         // padding-top: 6rem;
         box-sizing: border-box;
     }
+`;
+
+const writeStyle = css`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
 `;

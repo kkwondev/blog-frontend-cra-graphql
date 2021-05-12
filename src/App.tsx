@@ -29,7 +29,7 @@ function App() {
                     </AppLayout.Main>
                 </AppLayout>
             </Route>
-            <Route path={['/post/:slug', '/write']}>
+            <Route path={['/post/:slug']}>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -38,10 +38,16 @@ function App() {
                         <Route path="/post/:slug">
                             <Post />
                         </Route>
+                    </AppLayout.Post>
+                </AppLayout>
+            </Route>
+            <Route path="/write">
+                <AppLayout>
+                    <AppLayout.Write>
                         <Route path="/write" exact>
                             <Write />
                         </Route>
-                    </AppLayout.Post>
+                    </AppLayout.Write>
                 </AppLayout>
             </Route>
         </Switch>
