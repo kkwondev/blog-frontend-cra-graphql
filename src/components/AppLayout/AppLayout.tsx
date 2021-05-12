@@ -117,4 +117,5 @@ const writeStyle = css`
     height: 100vh;
     display: flex;
     flex-wrap: wrap;
+    background: ${palette.white};
 `;

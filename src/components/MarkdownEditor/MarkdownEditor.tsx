@@ -4,6 +4,7 @@ import ReactMde, { SaveImageHandler, Suggestion } from 'react-mde';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import * as Showdown from 'showdown';
 import useCreatePost from '../../hooks/useCreatePost';
+import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
 function MarkdownEditor() {
@@ -115,10 +116,12 @@ const Markdown = css`
         padding: 0.5rem 0;
         flex-wrap: unset;
         overflow-x: auto;
-        background: rgb(248, 249, 250);
     }
     .mde-tabs button {
         display: none;
+        ${media.medium} {
+            display: block;
+        }
     }
     .mde-header .svg-icon {
         width: 1rem;
@@ -134,7 +137,6 @@ const Markdown = css`
         font-size: 1.125rem;
         line-height: 1.5;
         color: rgb(52, 58, 64);
-        background: rgb(248, 249, 250);
     }
 `;
 

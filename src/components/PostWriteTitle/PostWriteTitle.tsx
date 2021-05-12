@@ -29,7 +29,7 @@ const PostWriteTitleWrap = css`
         outline: none;
         border: none;
         font-weight: bold;
-        background: rgb(248, 249, 250);
+        border-bottom: 4px solid ${palette.grey[200]};
     }
     input:placeholder {
         color: ${palette.grey[200]};
