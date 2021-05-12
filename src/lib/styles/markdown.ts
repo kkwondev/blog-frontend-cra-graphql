@@ -625,7 +625,7 @@ export const markdown = css`
     }
 
     .markdown-body > :last-of-type {
-        margin-bottom: 0 !important;
+        // margin-bottom: 0 !important;
     }
 
     .markdown-body a:not([href]) {

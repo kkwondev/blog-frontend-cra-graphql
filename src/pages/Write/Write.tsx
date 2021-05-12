@@ -7,6 +7,7 @@ import { postState } from '../../atoms/postState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
+import TagsInput from '../../components/TagsInput/TagsInput';
 import media from '../../lib/styles/media';
 
 export interface WriteProps {}
@@ -21,6 +22,7 @@ function Write({ history }: RouteComponentProps) {
         <>
             <div css={left}>
                 <PostWriteTitle />
+                <TagsInput />
                 <MarkdownEditor />
             </div>
             <div css={right}>

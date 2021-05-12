@@ -5,10 +5,16 @@ import palette from '../../lib/styles/palette';
 
 interface TagGridItemProps {
     name: string;
+    // eslint-disable-next-line react/require-default-props
+    onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function TagsGridItem({ name }: TagGridItemProps) {
-    return <div css={tagStyle}>{name}</div>;
+function TagsGridItem({ name, onClick }: TagGridItemProps) {
+    return (
+        <div css={tagStyle} onClick={onClick}>
+            {name}
+        </div>
+    );
 }
 const tagStyle = css`
     margin-bottom: 0.875rem;
@@ -25,6 +31,7 @@ const tagStyle = css`
     font-weight: 500;
     font-size: 1rem;
     letter-spacing: -1px;
+    cursor: pointer;
     ${media.small} {
         height: 1.5rem;
         font-size: 0.75rem;
