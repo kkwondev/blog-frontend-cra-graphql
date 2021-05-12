@@ -115,6 +115,7 @@ const Markdown = css`
         padding: 0.5rem 0;
         flex-wrap: unset;
         overflow-x: auto;
+        background: rgb(248, 249, 250);
     }
     .mde-tabs button {
         display: none;
@@ -133,6 +134,7 @@ const Markdown = css`
         font-size: 1.125rem;
         line-height: 1.5;
         color: rgb(52, 58, 64);
+        background: rgb(248, 249, 250);
     }
 `;
 
