@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { postState } from '../../atoms/postState';
+import { postContentState, postState, postTitleState } from '../../atoms/postState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
@@ -13,8 +13,8 @@ import media from '../../lib/styles/media';
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
-    const post = useRecoilValue(postState);
-    console.log(post);
+    const title = useRecoilValueLoadable(postTitleState);
+    const content = useRecoilValue(postContentState);
     if (!user) {
         history.push('/');
     }
@@ -27,8 +27,8 @@ function Write({ history }: RouteComponentProps) {
             </div>
             <div css={right}>
                 <div className="preview">
-                    <h1>{post.title}</h1>
-                    <MarkdownRender markdownText={post.content} />
+                    <h1>{title}</h1>
+                    <MarkdownRender markdownText={content} />
                 </div>
             </div>
         </>

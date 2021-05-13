@@ -1,9 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { postState } from '../atoms/postState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { postState, postTagsState } from '../atoms/postState';
 
 export default function useCreatePost() {
     const [post, setPost] = useRecoilState(postState);
+    const tags = useRecoilValue(postTagsState);
     const [tagValue, setTagValue] = useState('');
     const ignore = useRef(false);
 
@@ -37,7 +38,7 @@ export default function useCreatePost() {
                 }
                 setPost({
                     ...post,
-                    tags: [...post.tags, ...tempTags],
+                    tags: [...tags, ...tempTags],
                 });
                 return;
             }
@@ -46,10 +47,10 @@ export default function useCreatePost() {
             }
             setPost({
                 ...post,
-                tags: [...post.tags, processed],
+                tags: [...tags, processed],
             });
         },
-        [post.tags]
+        [tags]
     );
 
     const onKeyDown = useCallback(
@@ -57,7 +58,7 @@ export default function useCreatePost() {
             if (e.key === 'Backspace' && tagValue === '') {
                 setPost({
                     ...post,
-                    tags: post.tags.slice(0, post.tags.length - 1),
+                    tags: tags.slice(0, tags.length - 1),
                 });
                 return;
             }
@@ -68,11 +69,11 @@ export default function useCreatePost() {
                 insertTag(tagValue);
             }
         },
-        [insertTag, post.tags, tagValue]
+        [insertTag, tags, tagValue]
     );
 
     const onRemove = (tag: string) => {
-        const nextTags = post.tags.filter(t => t !== tag);
+        const nextTags = tags.filter(t => t !== tag);
         setPost({
             ...post,
             tags: nextTags,
@@ -81,6 +82,7 @@ export default function useCreatePost() {
 
     return {
         post,
+        tags,
         onChange,
         setPost,
         onChangeTagInput,
