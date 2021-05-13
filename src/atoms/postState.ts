@@ -25,7 +25,7 @@ export const postState = atom({
 });
 
 export const postTitleState = selector({
-    key: 'postTagsState',
+    key: 'postTitleState',
     get: ({ get }) => {
         return get(postState).title;
     },
@@ -34,13 +34,12 @@ export const postTitleState = selector({
 export const postTagsState = selector({
     key: 'postTagsState',
     get: ({ get }) => {
-        const Tags = get(postState).tags;
-        return Tags;
+        return get(postState).tags;
     },
 });
 
 export const postContentState = selector({
-    key: 'postTagsState',
+    key: 'postContentState',
     get: ({ get }) => {
         return get(postState).content;
     },

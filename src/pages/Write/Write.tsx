@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { postContentState, postState, postTitleState } from '../../atoms/postState';
+import { postContentState, postTitleState } from '../../atoms/postState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
@@ -13,7 +13,7 @@ import media from '../../lib/styles/media';
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
-    const title = useRecoilValueLoadable(postTitleState);
+    const title = useRecoilValue(postTitleState);
     const content = useRecoilValue(postContentState);
     if (!user) {
         history.push('/');
