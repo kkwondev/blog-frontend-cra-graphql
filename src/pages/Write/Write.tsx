@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
@@ -7,8 +7,10 @@ import { postContentState, postTitleState } from '../../atoms/postState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
+import SettingWrite from '../../components/SettingWrite/SettingWrite';
 import TagsInput from '../../components/TagsInput/TagsInput';
 import WriteFooter from '../../components/WriteFooter/WriteFooter';
+import useUpload from '../../hooks/useUpload';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
@@ -17,6 +19,16 @@ function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
     const title = useRecoilValue(postTitleState);
     const content = useRecoilValue(postContentState);
+    const [visible, setVisible] = useState(false);
+    const [upload] = useUpload();
+
+    const onSettingClick = () => {
+        setVisible(!visible);
+    };
+
+    const onUpload = () => {
+        upload();
+    };
     if (!user) {
         history.push('/');
     }
@@ -26,7 +38,7 @@ function Write({ history }: RouteComponentProps) {
                 <PostWriteTitle />
                 <TagsInput />
                 <MarkdownEditor />
-                <WriteFooter />
+                <WriteFooter settingClick={onSettingClick} />
             </div>
             <div css={right}>
                 <div className="preview">
@@ -34,6 +46,7 @@ function Write({ history }: RouteComponentProps) {
                     <MarkdownRender markdownText={content} />
                 </div>
             </div>
+            <SettingWrite visible={visible} onUpload={onUpload} onClose={onSettingClick} />
         </>
     );
 }

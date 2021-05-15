@@ -1,16 +1,25 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { MdArrowBack } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 import media from '../../lib/styles/media';
 
-function WriteFooter() {
+interface WriteFooterProps {
+    settingClick: () => void;
+}
+
+function WriteFooter({ settingClick }: WriteFooterProps) {
+    const history = useHistory();
+    const onGoBack = () => {
+        history.goBack();
+    };
     return (
         <div css={WriterFooterWrap}>
-            <button css={BackBtn} type="button">
+            <button css={BackBtn} type="button" onClick={onGoBack}>
                 <MdArrowBack />
                 <span>나가기</span>
             </button>
-            <button type="button" css={StyledButton}>
+            <button type="button" css={StyledButton} onClick={settingClick}>
                 등록하기
             </button>
         </div>
