@@ -50,7 +50,7 @@ export default function useCreatePost() {
                 tags: [...tags, processed],
             });
         },
-        [tags]
+        [post, tags]
     );
 
     const onKeyDown = useCallback(
