@@ -291,6 +291,7 @@ export const blueGrey = {
     '800': '#37474f',
     '900': '#263238',
 };
+export const background = 'rgb(251, 253, 252)';
 export const black = '#000000';
 export const white = '#ffffff';
 export const darkText = {
@@ -342,4 +343,5 @@ export default {
     lightText: lightText,
     darkIcons: darkIcons,
     lightIcons: lightIcons,
+    background: background,
 };

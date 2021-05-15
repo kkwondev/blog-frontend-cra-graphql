@@ -8,7 +8,9 @@ import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
 import TagsInput from '../../components/TagsInput/TagsInput';
+import WriteFooter from '../../components/WriteFooter/WriteFooter';
 import media from '../../lib/styles/media';
+import palette from '../../lib/styles/palette';
 
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
@@ -24,6 +26,7 @@ function Write({ history }: RouteComponentProps) {
                 <PostWriteTitle />
                 <TagsInput />
                 <MarkdownEditor />
+                <WriteFooter />
             </div>
             <div css={right}>
                 <div className="preview">
@@ -51,6 +54,7 @@ const right = css`
     flex-direction: column;
     position: relative;
     z-index: 1;
+    background: ${palette.background};
     box-shadow: rgb(0 0 0 / 2%) 0px 0px 8px;
     .preview {
         padding: 3rem;
