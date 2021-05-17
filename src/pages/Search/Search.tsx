@@ -1,7 +1,10 @@
 import React from 'react';
+import SearchInput from '../../components/SearchInput';
+import useSearch from '../../hooks/useSearch';
 
 function Search() {
-    return <p>검색페이지</p>;
+    const { onChange, searchInput } = useSearch();
+    return <SearchInput onChange={onChange} searchInput={searchInput} />;
 }
 
 export default Search;
