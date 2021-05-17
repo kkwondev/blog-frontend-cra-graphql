@@ -16,7 +16,9 @@ function Header() {
                 <Link to="/">Klog</Link>
             </div>
             <div className="search">
-                <FiSearch size="22" color="#333" />
+                <Link to="/search">
+                    <FiSearch size="22" color="#333" />
+                </Link>
             </div>
             <div className="login">{user ? <CurrentUserInfo /> : <GoogleLoginButton />}</div>
         </div>

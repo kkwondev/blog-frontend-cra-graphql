@@ -6,6 +6,7 @@ import Nav from './components/Nav';
 import Categories from './pages/Categories';
 import Post from './pages/Post';
 import Posts from './pages/Posts';
+import Search from './pages/Search';
 import Write from './pages/Write';
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
                     </AppLayout.Main>
                 </AppLayout>
             </Route>
-            <Route path={['/post/:slug']}>
+            <Route path={['/post/:slug', '/search']}>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -37,6 +38,9 @@ function App() {
                     <AppLayout.Post>
                         <Route path="/post/:slug">
                             <Post />
+                        </Route>
+                        <Route path="/search">
+                            <Search />
                         </Route>
                     </AppLayout.Post>
                 </AppLayout>
