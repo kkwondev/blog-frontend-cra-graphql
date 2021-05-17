@@ -773,7 +773,7 @@ export const markdown = css`
         border-top: 1px solid #c6cbd1;
     }
 
-    .markdown-body table tr:nth-child(2n) {
+    .markdown-body table tr:nth-of-type(2n) {
         background-color: #f6f8fa;
     }
 
