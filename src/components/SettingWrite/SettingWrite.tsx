@@ -8,18 +8,19 @@ interface SettingWriteProps {
     visible: boolean;
     onUpload: () => any;
     onClose: () => void;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-function SettingWrite({ visible, onUpload, onClose }: SettingWriteProps) {
+function SettingWrite({ visible, onUpload, onClose, onChange }: SettingWriteProps) {
     if (!visible) return null;
     return (
         <div css={SettingWriteWrap}>
             <div className="setting">
                 <div css={category}>
                     <h2>카테고리 선택</h2>
-                    <select>
-                        <option>선택</option>
-                        <option>개발</option>
+                    <select name="categoryName" onChange={e => onChange(e)}>
+                        <option value="">선택</option>
+                        <option value="개발">개발</option>
                     </select>
                 </div>
                 <div css={imageUpload}>

@@ -10,6 +10,7 @@ import PostWriteTitle from '../../components/PostWriteTitle';
 import SettingWrite from '../../components/SettingWrite/SettingWrite';
 import TagsInput from '../../components/TagsInput/TagsInput';
 import WriteFooter from '../../components/WriteFooter/WriteFooter';
+import useCreatePost from '../../hooks/useCreatePost';
 import useUpload from '../../hooks/useUpload';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
@@ -21,6 +22,7 @@ function Write({ history }: RouteComponentProps) {
     const content = useRecoilValue(postContentState);
     const [visible, setVisible] = useState(false);
     const [upload] = useUpload();
+    const { onChange } = useCreatePost();
 
     const onSettingClick = () => {
         setVisible(!visible);
@@ -35,7 +37,7 @@ function Write({ history }: RouteComponentProps) {
     return (
         <>
             <div css={left}>
-                <PostWriteTitle />
+                <PostWriteTitle onChange={onChange} />
                 <TagsInput />
                 <MarkdownEditor />
                 <WriteFooter settingClick={onSettingClick} />
@@ -46,7 +48,7 @@ function Write({ history }: RouteComponentProps) {
                     <MarkdownRender markdownText={content} />
                 </div>
             </div>
-            <SettingWrite visible={visible} onUpload={onUpload} onClose={onSettingClick} />
+            <SettingWrite visible={visible} onUpload={onUpload} onClose={onSettingClick} onChange={onChange} />
         </>
     );
 }

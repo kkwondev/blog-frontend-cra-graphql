@@ -8,7 +8,7 @@ export default function useCreatePost() {
     const [tagValue, setTagValue] = useState('');
     const ignore = useRef(false);
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setPost({
             ...post,
             [e.target.name]: e.target.value,

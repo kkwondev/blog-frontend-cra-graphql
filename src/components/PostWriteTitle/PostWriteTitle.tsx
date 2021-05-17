@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import React from 'react';
-import useCreatePost from '../../hooks/useCreatePost';
 import palette from '../../lib/styles/palette';
 
-function PostWriteTitle() {
-    const { onChange } = useCreatePost();
+interface PostWriteTitleProps {
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function PostWriteTitle({ onChange }: PostWriteTitleProps) {
     return (
         <div css={PostWriteTitleWrap}>
             <input type="text" placeholder="제목을 입력해주세요." onChange={e => onChange(e)} name="title" />
