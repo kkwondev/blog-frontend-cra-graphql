@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { postContentState, postTitleState } from '../../atoms/postState';
+import { writeContentState, writeTitleState } from '../../atoms/writeState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
@@ -18,8 +18,8 @@ import palette from '../../lib/styles/palette';
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
-    const title = useRecoilValue(postTitleState);
-    const content = useRecoilValue(postContentState);
+    const title = useRecoilValue(writeTitleState);
+    const content = useRecoilValue(writeContentState);
     const [visible, setVisible] = useState(false);
     const [upload] = useUpload();
     const { onChange } = useCreatePost();

@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 
-export interface PostState {
+export interface writeState {
     title: string;
     content: string;
     // eslint-disable-next-line camelcase
@@ -10,7 +10,7 @@ export interface PostState {
     user: string;
 }
 
-const intialState: PostState = {
+const intialState: writeState = {
     title: '',
     content: '',
     thumnbnail_img: '',
@@ -19,28 +19,28 @@ const intialState: PostState = {
     user: '',
 };
 
-export const postState = atom({
-    key: 'postState',
+export const writeState = atom({
+    key: 'writeState',
     default: intialState,
 });
 
-export const postTitleState = selector({
-    key: 'postTitleState',
+export const writeTitleState = selector({
+    key: 'writeTitleState',
     get: ({ get }) => {
-        return get(postState).title;
+        return get(writeState).title;
     },
 });
 
-export const postTagsState = selector({
-    key: 'postTagsState',
+export const writeTagsState = selector({
+    key: 'writeTagsState',
     get: ({ get }) => {
-        return get(postState).tags;
+        return get(writeState).tags;
     },
 });
 
-export const postContentState = selector({
-    key: 'postContentState',
+export const writeContentState = selector({
+    key: 'writeContentState',
     get: ({ get }) => {
-        return get(postState).content;
+        return get(writeState).content;
     },
 });

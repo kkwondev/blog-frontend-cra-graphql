@@ -9,7 +9,7 @@ import palette from '../../lib/styles/palette';
 
 function MarkdownEditor() {
     // const [value, setValue] = useState('**Hello world!!!**');
-    const { post, setPost } = useCreatePost();
+    const { write, setWrite } = useCreatePost();
     const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
     const loadSuggestions = async (text: string) => {
@@ -71,10 +71,10 @@ function MarkdownEditor() {
         <div className="container" css={Markdown}>
             <ReactMde
                 minEditorHeight={1000}
-                value={post.content}
+                value={write.content}
                 onChange={e => {
-                    setPost({
-                        ...post,
+                    setWrite({
+                        ...write,
                         content: e,
                     });
                 }}

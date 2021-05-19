@@ -6,10 +6,10 @@ import palette from '../../lib/styles/palette';
 import TagsGridItem from '../TagsGridItem';
 
 function TagsInput() {
-    const { post, onRemove, onKeyDown, onChangeTagInput, tagValue } = useCreatePost();
+    const { write, onRemove, onKeyDown, onChangeTagInput, tagValue } = useCreatePost();
     return (
         <div css={tagInputWrap}>
-            {post.tags.map(tag => (
+            {write.tags.map(tag => (
                 <TagsGridItem name={tag} key={tag} onClick={() => onRemove(tag)} />
             ))}
             <input

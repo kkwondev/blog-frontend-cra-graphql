@@ -1,16 +1,16 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { postState, postTagsState } from '../atoms/postState';
+import { writeState, writeTagsState } from '../atoms/writeState';
 
 export default function useCreatePost() {
-    const [post, setPost] = useRecoilState(postState);
-    const tags = useRecoilValue(postTagsState);
+    const [write, setWrite] = useRecoilState(writeState);
+    const tags = useRecoilValue(writeTagsState);
     const [tagValue, setTagValue] = useState('');
     const ignore = useRef(false);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        setPost({
-            ...post,
+        setWrite({
+            ...write,
             [e.target.name]: e.target.value,
         });
     };
@@ -23,7 +23,7 @@ export default function useCreatePost() {
         (tag: string) => {
             ignore.current = true;
             setTagValue('');
-            if (tag === '' || post.tags.includes(tag)) return;
+            if (tag === '' || write.tags.includes(tag)) return;
             let processed = tag;
             processed = tag.trim();
             if (processed.indexOf(' #') > 0) {
@@ -36,8 +36,8 @@ export default function useCreatePost() {
                         tempTags.push(execArray[1]);
                     }
                 }
-                setPost({
-                    ...post,
+                setWrite({
+                    ...write,
                     tags: [...tags, ...tempTags],
                 });
                 return;
@@ -45,19 +45,19 @@ export default function useCreatePost() {
             if (processed.charAt(0) === '#') {
                 processed = processed.slice(1, processed.length);
             }
-            setPost({
-                ...post,
+            setWrite({
+                ...write,
                 tags: [...tags, processed],
             });
         },
-        [post, tags]
+        [write, tags]
     );
 
     const onKeyDown = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Backspace' && tagValue === '') {
-                setPost({
-                    ...post,
+                setWrite({
+                    ...write,
                     tags: tags.slice(0, tags.length - 1),
                 });
                 return;
@@ -74,17 +74,17 @@ export default function useCreatePost() {
 
     const onRemove = (tag: string) => {
         const nextTags = tags.filter(t => t !== tag);
-        setPost({
-            ...post,
+        setWrite({
+            ...write,
             tags: nextTags,
         });
     };
 
     return {
-        post,
+        write,
         tags,
         onChange,
-        setPost,
+        setWrite,
         onChangeTagInput,
         onKeyDown,
         onRemove,
