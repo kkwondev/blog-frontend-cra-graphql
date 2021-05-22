@@ -15,6 +15,7 @@ function useCurrentUser() {
     useEffect(() => {
         if (logged) {
             me();
+            console.log('진입');
             if (data && data.currentUser) {
                 setUser(data.currentUser);
             } else if (error) {
