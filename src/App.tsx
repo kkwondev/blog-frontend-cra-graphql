@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AppLayout from './components/AppLayout/AppLayout';
 import Header from './components/Header/Header';
@@ -11,9 +11,7 @@ import Search from './pages/Search';
 import Write from './pages/Write';
 
 function App() {
-    const logged = localStorage.getItem('Authorization');
     useCurrentUser();
-
     return (
         <Switch>
             <Route path={['/', '/posts', '/categories', '/categories/:id']} exact>

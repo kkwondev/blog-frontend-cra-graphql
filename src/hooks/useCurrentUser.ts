@@ -1,33 +1,28 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../atoms/authState';
 import { CURRENT_USER } from '../lib/apollo/queries/auth';
 import { User } from '../types/User';
 
+// eslint-disable-next-line consistent-return
 function useCurrentUser() {
+    const user = useRecoilValue(userState);
     const setUser = useSetRecoilState(userState);
-    const getCurrentUser = useQuery<{ currentUser: User }>(CURRENT_USER);
     const logged = localStorage.getItem('Authorization');
+    const [me, { data, error }] = useLazyQuery<{ currentUser: User }>(CURRENT_USER);
 
-    const user = getCurrentUser.data ? getCurrentUser.data.currentUser : undefined;
-
-    if (user) {
-        setUser(user);
-    }
-    // eslint-disable-next-line consistent-return
     useEffect(() => {
-        if (!logged) {
-            localStorage.removeItem('Authorization');
-            setUser(null);
+        if (logged) {
+            me();
+            if (data && data.currentUser) {
+                setUser(data.currentUser);
+            } else if (error) {
+                alert('로그인 실패하였습니다.');
+                console.error(error);
+            }
         }
-    }, [user]);
-
-    useEffect(() => {
-        if (user === undefined) return;
-        // eslint-disable-next-line no-useless-return
-        if (user === null) return; // not logged in
-    }, [user]);
+    }, [logged, user, data]);
 }
 
 export default useCurrentUser;
