@@ -29,8 +29,7 @@ export default function useAuth() {
             })
             .catch(e => {
                 // eslint-disable-next-line no-alert
-                console.error(e);
-                alert('로그인이 실패하였습니다.');
+                alert(e.message);
             });
     };
 
