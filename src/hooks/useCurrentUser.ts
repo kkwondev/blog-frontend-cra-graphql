@@ -15,15 +15,15 @@ function useCurrentUser() {
     useEffect(() => {
         if (logged) {
             me();
-            console.log('진입');
             if (data && data.currentUser) {
                 setUser(data.currentUser);
             } else if (error) {
                 alert('로그인 실패하였습니다.');
                 console.error(error);
+                localStorage.removeItem('Authorization');
             }
         }
-    }, [logged, user, data]);
+    }, [logged, user, data, error]);
 }
 
 export default useCurrentUser;
