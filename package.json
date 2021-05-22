@@ -33,7 +33,7 @@
     "scripts": {
         "start": "cp .config/.env.local .env && craco start",
         "start:prod": "cp .config/.env.prod .env && craco start",
-        "build:prod": "cp .config/.env.prod .env && CI=false GENERATE_SOURCEMAP=false craco build",
+        "build": "cp .config/.env.prod .env && CI=false GENERATE_SOURCEMAP=false craco build",
         "test": "craco test",
         "eject": "craco eject"
     },
