@@ -13,3 +13,14 @@ export const GOOGLE_LOGIN = gql`
         }
     }
 `;
+
+export const CURRENT_USER = gql`
+    query currentUser {
+        currentUser {
+            id
+            email
+            photo_url
+            nickname
+        }
+    }
+`;

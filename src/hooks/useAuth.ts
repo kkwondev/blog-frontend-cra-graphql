@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../atoms/authState';
-import { CURRENT_USER, GOOGLE_LOGIN } from '../lib/apollo/queries/auth';
+import { GOOGLE_LOGIN } from '../lib/apollo/queries/auth';
 import { User } from '../types/User';
 
 interface loginData {

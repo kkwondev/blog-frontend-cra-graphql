@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AppLayout from './components/AppLayout/AppLayout';
 import Header from './components/Header/Header';
 import Nav from './components/Nav';
+import useCurrentUser from './hooks/useCurrentUser';
 import Categories from './pages/Categories';
 import Post from './pages/Post';
 import Posts from './pages/Posts';
@@ -10,6 +11,9 @@ import Search from './pages/Search';
 import Write from './pages/Write';
 
 function App() {
+    const logged = localStorage.getItem('Authorization');
+    useCurrentUser();
+
     return (
         <Switch>
             <Route path={['/', '/posts', '/categories', '/categories/:id']} exact>
