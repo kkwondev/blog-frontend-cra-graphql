@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@apollo/client": "^3.3.19",
         "@craco/craco": "^6.1.2",
         "@emotion/babel-preset-css-prop": "^11.2.0",
         "@emotion/react": "^11.1.5",
@@ -14,6 +15,7 @@
         "@types/react": "^17.0.4",
         "@types/react-dom": "^17.0.3",
         "@types/react-router-dom": "^5.1.7",
+        "graphql": "^15.5.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-google-login": "^5.2.2",
@@ -29,8 +31,9 @@
         "web-vitals": "^1.0.1"
     },
     "scripts": {
-        "start": "craco start",
-        "build": "craco build",
+        "start": "cp .config/.env.local .env && craco start",
+        "start:prod": "cp .config/.env.prod .env && react-scripts start",
+        "build:prod": "cp .config/.env.prod .env && react-scripts build",
         "test": "craco test",
         "eject": "craco eject"
     },
