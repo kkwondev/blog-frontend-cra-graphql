@@ -13,9 +13,9 @@ function PostsGridItem({ post }: PostsGridItemProps) {
     return (
         <Link to={`post/${post.slug}`} css={card}>
             <div>
-                {post.thumnbnail_img ? (
+                {post.thumbnail_img ? (
                     <div className="thumbnail">
-                        <img src={post.thumnbnail_img} alt="img" />
+                        <img src={post.thumbnail_img} alt="img" />
                     </div>
                 ) : null}
                 <div className="content">

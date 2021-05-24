@@ -1,65 +1,23 @@
 import { css } from '@emotion/react';
-import React, { useEffect, useState } from 'react';
-import { responsePost } from '../../types/Post';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Empty from '../../assets/images/empty_posts.svg';
 import media from '../../lib/styles/media';
 import PostsGridItem from '../PostsGridItem';
 import PostsGridItemSkeleton from '../PostsGridItemSkeleton';
+import { responsePost } from '../../types/Post';
+import { postsArrayState } from '../../atoms/postsState';
 
-function PostsGrid() {
-    const [items, setItems] = useState<responsePost[]>([]);
-    const [loading, setLoding] = useState(false);
+interface postGridProps {
+    posts: responsePost[];
+    hasMorePost: boolean;
+    loading: any;
+}
 
-    const Dummydata = (id: number) => {
-        const dataArray = items;
-        // eslint-disable-next-line no-plusplus
-        for (let i = id; i < id + 10; i++) {
-            const addData = {
-                id: i,
-                title: `post#${i}`,
-                slug: `post#${i}`,
-                content: '가나다라마바사아차다타카치나마바사아',
-                thumnbnail_img:
-                    'https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png?w=640',
-                category: '개발',
-                createdAt: '2021-05-04',
-                user: {
-                    email: 'kkwoncokr@gmail.com',
-                    nickname: '강경원',
-                    photo_url:
-                        'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
-                },
-            };
-            setLoding(false);
-            dataArray.push(addData);
-        }
-        dataArray.map(data => setItems([...items, data]));
-    };
-
-    const onScroll = () => {
-        if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
-            if (items.length < 30) {
-                setLoding(true);
-                setTimeout(() => {
-                    Dummydata(items[items.length - 1].id);
-                }, 1000);
-            }
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll);
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-        };
-    }, [items]);
-
-    useEffect(() => {
-        Dummydata(1);
-    }, []);
+function PostsGrid({ posts, hasMorePost, loading }: postGridProps) {
     // TODO: Post items dummu data
 
-    if (items && items.length === 0) {
+    if (posts && posts.length === 0) {
         return (
             <div css={empty}>
                 <img src={Empty} alt="empty" />
@@ -70,14 +28,15 @@ function PostsGrid() {
     return (
         <section css={block}>
             <article css={grid}>
-                {items
-                    ? items.map((item: responsePost, index) => (
+                {posts.length > 0
+                    ? posts.map((item: responsePost, index) => (
                           // eslint-disable-next-line react/no-array-index-key
                           <PostsGridItem post={item} key={index} />
                       ))
                     : // eslint-disable-next-line react/no-array-index-key
                       Array.from({ length: 10 }).map((_, i) => <PostsGridItemSkeleton key={i} />)}
-                {loading &&
+                {hasMorePost &&
+                    loading &&
                     Array.from({ length: 10 }).map((_, i) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <PostsGridItemSkeleton key={i} />

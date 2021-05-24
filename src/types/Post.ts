@@ -16,7 +16,7 @@ export interface responsePost {
     slug: string;
     content: string;
     // eslint-disable-next-line camelcase
-    thumnbnail_img?: string;
+    thumbnail_img?: string;
     category: string;
     createdAt: string;
     user: User;
