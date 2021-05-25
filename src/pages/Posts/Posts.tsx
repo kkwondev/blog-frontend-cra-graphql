@@ -4,17 +4,18 @@ import { userState } from '../../atoms/authState';
 import { hasMorePostState, postsArrayState, postsState } from '../../atoms/postsState';
 import PostsGrid from '../../components/PostsGrid';
 import PostWriteButton from '../../components/PostWriteButton';
-import getPostsApi from '../../hooks/query/posts/getPostsApi';
+import getPostsApi from '../../hooks/query/posts/getPosts';
 
 // export interface PostsProps {}
 function Posts() {
-    const { data, loading, onLoadMore } = getPostsApi();
+    const { data, onLoadMore } = getPostsApi();
     const [getPosts, setGetPosts] = useRecoilState(postsArrayState);
-    const posts = useRecoilValue(postsState);
     const [getHasMorePost, setgetHasMorePost] = useRecoilState(hasMorePostState);
     const user = useRecoilValue(userState);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (data) {
+            setLoading(false);
             setGetPosts(data.getPosts.post);
             setgetHasMorePost(data.getPosts.hasMorePost);
         }
@@ -26,7 +27,10 @@ function Posts() {
         const { clientHeight } = document.documentElement;
 
         if (scrollTop + clientHeight >= scrollHeight && getHasMorePost === true) {
-            onLoadMore(getPosts[getPosts.length - 1].id);
+            setLoading(true);
+            setTimeout(() => {
+                onLoadMore(getPosts[getPosts.length - 1].id);
+            }, 1000);
         }
     };
 

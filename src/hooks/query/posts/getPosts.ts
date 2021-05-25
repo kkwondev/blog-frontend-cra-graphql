@@ -1,10 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { postsState } from '../../../atoms/postsState';
 import { GET_POSTS } from '../../../lib/apollo/queries/posts';
 
-export default function getPostsApi() {
+export default function getPosts() {
     const { data, loading, fetchMore } = useQuery(
         GET_POSTS,
         {

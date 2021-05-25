@@ -1,17 +1,15 @@
 import { css } from '@emotion/react';
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React from 'react';
 import Empty from '../../assets/images/empty_posts.svg';
 import media from '../../lib/styles/media';
 import PostsGridItem from '../PostsGridItem';
 import PostsGridItemSkeleton from '../PostsGridItemSkeleton';
 import { responsePost } from '../../types/Post';
-import { postsArrayState } from '../../atoms/postsState';
 
 interface postGridProps {
     posts: responsePost[];
     hasMorePost: boolean;
-    loading: any;
+    loading: boolean;
 }
 
 function PostsGrid({ posts, hasMorePost, loading }: postGridProps) {
