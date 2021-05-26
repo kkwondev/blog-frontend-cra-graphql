@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
+import dayjs from 'dayjs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 import { responsePost } from '../../types/Post';
+import MarkdownRender from '../MarkdownRender';
 
 export interface PostsGridItemProps {
     post: responsePost;
@@ -20,10 +22,10 @@ function PostsGridItem({ post }: PostsGridItemProps) {
                 ) : null}
                 <div className="content">
                     <h2>{post.title}</h2>
-                    <p>{post.content}</p>
+                    <p>{post.content.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\\{\\}\\[\]\\\\/]/gi, '')}</p>
                 </div>
                 <div className="date">
-                    <p>{post.updatedAt}</p>
+                    <p>{dayjs(post.updatedAt).format('YYYY년 MM월 DD일 HH시 mm분')}</p>
                 </div>
                 <div className="bottom">
                     <div className="category">

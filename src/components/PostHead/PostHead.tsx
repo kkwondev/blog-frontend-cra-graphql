@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import dayjs from 'dayjs';
 import React from 'react';
 import getTags from '../../hooks/query/post/getTags';
 import media from '../../lib/styles/media';
@@ -19,7 +20,7 @@ function PostHead({ post }: PostHeadProps) {
             <div css={information}>
                 <span className="username">{post.user.nickname}</span>
                 <span className="separator">&middot;</span>
-                <span>{post.updatedAt}</span>
+                <span>{dayjs(post.updatedAt).format('YYYY년 MM월 DD일 HH시 mm분')}</span>
             </div>
             <TagsGrid tags={data.getPostTags} />
             {post.thumbnail_img ? (
