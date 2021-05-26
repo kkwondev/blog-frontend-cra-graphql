@@ -1,14 +1,14 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import getCategory from '../../hooks/query/category/getCategory';
 import media from '../../lib/styles/media';
 
 export interface NavProps {}
 
-// TODO: api connect before dummyData
-const menuDummyData = ['개발', '일', '일기', 'test', 'text2'];
-
 function Nav({ match }: RouteComponentProps) {
+    const { data } = getCategory();
+    if (!data) return null;
     return (
         <div css={Block}>
             <ul>
@@ -17,17 +17,17 @@ function Nav({ match }: RouteComponentProps) {
                         전체
                     </Link>
                 </li>
-                {menuDummyData.map((menu, index) => (
+                {/* {data.map(({ name }: any, index: number) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <li key={index}>
                         <Link
-                            to={`/categories/${menu}`}
-                            className={match.url === `/categories/${menu}` ? 'active' : ''}
+                            to={`/categories/${name}`}
+                            className={match.url === `/categories/${name}` ? 'active' : ''}
                         >
-                            {menu}
+                            {name}
                         </Link>
                     </li>
-                ))}
+                ))} */}
             </ul>
         </div>
     );
