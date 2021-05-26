@@ -8,28 +8,18 @@ import getPostsApi from '../../hooks/query/posts/getPosts';
 
 // export interface PostsProps {}
 function Posts() {
-    const { data, onLoadMore } = getPostsApi();
-    const [getPosts, setGetPosts] = useRecoilState(postsArrayState);
-    const [getHasMorePost, setgetHasMorePost] = useRecoilState(hasMorePostState);
+    const { data, onLoadMore, hasMorePost, loading } = getPostsApi();
+
     const user = useRecoilValue(userState);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        if (data) {
-            setLoading(false);
-            setGetPosts(data.getPosts.post);
-            setgetHasMorePost(data.getPosts.hasMorePost);
-        }
-    }, [data]);
 
     const handleScroll = () => {
         const { scrollHeight } = document.documentElement;
         const { scrollTop } = document.documentElement;
         const { clientHeight } = document.documentElement;
 
-        if (scrollTop + clientHeight >= scrollHeight && getHasMorePost === true) {
-            setLoading(true);
+        if (scrollTop + clientHeight >= scrollHeight && hasMorePost === true) {
             setTimeout(() => {
-                onLoadMore(getPosts[getPosts.length - 1].id);
+                onLoadMore(data[data.length - 1].id);
             }, 1000);
         }
     };
@@ -40,10 +30,11 @@ function Posts() {
             window.removeEventListener('scroll', handleScroll);
         };
     });
-
+    console.log(data);
+    if (!data) return null;
     return (
         <>
-            <PostsGrid posts={getPosts} hasMorePost={getHasMorePost} loading={loading} />
+            <PostsGrid posts={data} loading={loading} />
             {user ? <PostWriteButton /> : null}
         </>
     );

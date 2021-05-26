@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloLink, concat, createHttpLink, InMemoryCache } from '@apollo/client';
+import { relayStylePagination } from '@apollo/client/utilities';
 
 const host = process.env.REACT_APP_ENV === 'local' ? 'http://localhost:3001/graphql' : process.env.REACT_APP_API_HOST;
 const link = createHttpLink({
@@ -17,9 +18,34 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     return forward(operation);
 });
 
+const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                getPosts: relayStylePagination(),
+                // getPosts: {
+                //     keyArgs: [],
+                //     merge(existing = {}, incoming, { args }) {
+                //         console.log('existing', existing.post);
+                //         console.log('incominng', incoming.post);
+                //         if (args) {
+                //             return incoming;
+                //         }
+                //         return {
+                //             ...existing,
+                //             post: [...existing.post, ...incoming.post],
+                //             hasMorePost: incoming.hasMorePost,
+                //         };
+                //     },
+                // },
+            },
+        },
+    },
+});
+
 const client = new ApolloClient({
     link: concat(authMiddleware, link),
-    cache: new InMemoryCache(),
+    cache,
 });
 
 export default client;

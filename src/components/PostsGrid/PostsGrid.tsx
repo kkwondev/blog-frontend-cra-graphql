@@ -8,11 +8,10 @@ import { responsePost } from '../../types/Post';
 
 interface postGridProps {
     posts: responsePost[];
-    hasMorePost: boolean;
     loading: boolean;
 }
 
-function PostsGrid({ posts, hasMorePost, loading }: postGridProps) {
+function PostsGrid({ posts, loading }: postGridProps) {
     // TODO: Post items dummu data
 
     if (posts && posts.length === 0) {
@@ -33,8 +32,7 @@ function PostsGrid({ posts, hasMorePost, loading }: postGridProps) {
                       ))
                     : // eslint-disable-next-line react/no-array-index-key
                       Array.from({ length: 10 }).map((_, i) => <PostsGridItemSkeleton key={i} />)}
-                {hasMorePost &&
-                    loading &&
+                {loading &&
                     Array.from({ length: 10 }).map((_, i) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <PostsGridItemSkeleton key={i} />

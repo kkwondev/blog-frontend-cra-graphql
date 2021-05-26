@@ -17,16 +17,13 @@ export default function getPosts() {
                 variables: {
                     lastId,
                 },
-                updateQuery: (prev, { fetchMoreResult }) => {
-                    if (!fetchMoreResult) return prev;
-                    return fetchMoreResult;
-                },
             });
         },
         [fetchMore]
     );
     return {
-        data,
+        data: data?.getPosts.post,
+        hasMorePost: data?.getPosts.hasMorePost,
         loading,
         onLoadMore,
     };
