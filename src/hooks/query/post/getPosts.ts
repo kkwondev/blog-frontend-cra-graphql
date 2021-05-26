@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useCallback } from 'react';
-import { GET_POSTS } from '../../../lib/apollo/queries/posts';
+import { GET_POSTS } from '../../../lib/apollo/queries/post';
 
 export default function getPosts() {
     const { data, loading, fetchMore } = useQuery(

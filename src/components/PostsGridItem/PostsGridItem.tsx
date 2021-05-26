@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 import { responsePost } from '../../types/Post';
-import MarkdownRender from '../MarkdownRender';
 
 export interface PostsGridItemProps {
     post: responsePost;

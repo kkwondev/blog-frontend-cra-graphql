@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { GET_POST } from '../../../lib/apollo/queries/posts';
+import { GET_POST } from '../../../lib/apollo/queries/post';
 
 export interface PostParams {
     slug: string;
