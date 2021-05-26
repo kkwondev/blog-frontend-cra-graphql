@@ -22,22 +22,19 @@ const cache = new InMemoryCache({
     typePolicies: {
         Query: {
             fields: {
-                getPosts: relayStylePagination(),
-                // getPosts: {
-                //     keyArgs: [],
-                //     merge(existing = {}, incoming, { args }) {
-                //         console.log('existing', existing.post);
-                //         console.log('incominng', incoming.post);
-                //         if (args) {
-                //             return incoming;
-                //         }
-                //         return {
-                //             ...existing,
-                //             post: [...existing.post, ...incoming.post],
-                //             hasMorePost: incoming.hasMorePost,
-                //         };
-                //     },
-                // },
+                getPosts: {
+                    keyArgs: [],
+                    read(existing) {
+                        return existing;
+                    },
+                    merge(existing, incoming) {
+                        if (!existing) return incoming;
+                        return {
+                            post: [...existing.post, ...incoming.post],
+                            hasMorePost: incoming.hasMorePost,
+                        };
+                    },
+                },
             },
         },
     },

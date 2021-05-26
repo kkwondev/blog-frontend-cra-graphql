@@ -17,7 +17,9 @@ export interface responsePost {
     content: string;
     // eslint-disable-next-line camelcase
     thumbnail_img?: string;
-    category: string;
-    createdAt: string;
+    category: {
+        name: string;
+    };
+    updatedAt: string;
     user: User;
 }

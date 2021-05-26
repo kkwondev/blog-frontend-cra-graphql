@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { hasMorePostState, postsArrayState, postsState } from '../../atoms/postsState';
 import PostsGrid from '../../components/PostsGrid';
 import PostWriteButton from '../../components/PostWriteButton';
 import getPostsApi from '../../hooks/query/posts/getPosts';
@@ -18,9 +17,7 @@ function Posts() {
         const { clientHeight } = document.documentElement;
 
         if (scrollTop + clientHeight >= scrollHeight && hasMorePost === true) {
-            setTimeout(() => {
-                onLoadMore(data[data.length - 1].id);
-            }, 1000);
+            onLoadMore(data[data.length - 1].id);
         }
     };
 
@@ -30,7 +27,6 @@ function Posts() {
             window.removeEventListener('scroll', handleScroll);
         };
     });
-    console.log(data);
     if (!data) return null;
     return (
         <>

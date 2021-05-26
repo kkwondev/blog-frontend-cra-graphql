@@ -23,11 +23,11 @@ function PostsGridItem({ post }: PostsGridItemProps) {
                     <p>{post.content}</p>
                 </div>
                 <div className="date">
-                    <p>{post.createdAt}</p>
+                    <p>{post.updatedAt}</p>
                 </div>
                 <div className="bottom">
                     <div className="category">
-                        카테고리 <strong>{post.category}</strong>
+                        카테고리 <strong>{post.category.name}</strong>
                     </div>
                     <div className="userInfo">
                         <img src={post.user.photo_url} alt="me" />
