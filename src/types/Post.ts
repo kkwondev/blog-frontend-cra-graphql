@@ -23,3 +23,10 @@ export interface responsePost {
     updatedAt: string;
     user: User;
 }
+
+export interface responseTag {
+    tags: {
+        title: string;
+    };
+    __typename: string;
+}

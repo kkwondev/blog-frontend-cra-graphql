@@ -1,12 +1,16 @@
 import React from 'react';
+import { responseTag } from '../../types/Post';
 import TagsGridItem from '../TagsGridItem';
 
-const tags = ['테스트', '테스트2', 'test1'];
-function TagsGrid() {
+export interface TagsGridProps {
+    tags: responseTag[];
+}
+function TagsGrid({ tags }: TagsGridProps) {
     return (
         <>
-            {tags.map(tag => (
-                <TagsGridItem name={tag} key={tag} />
+            {tags.map((tag, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <TagsGridItem name={tag.tags.title} key={index} />
             ))}
         </>
     );

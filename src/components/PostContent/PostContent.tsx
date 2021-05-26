@@ -2,11 +2,16 @@ import { css } from '@emotion/react';
 import React from 'react';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
+import MarkdownRender from '../MarkdownRender';
 
-function PostContent() {
+export interface PostContentProps {
+    content: string;
+}
+
+function PostContent({ content }: PostContentProps) {
     return (
         <div css={contentBlock}>
-            <h2 id="-들어가기">🙏 들어가기</h2>
+            <MarkdownRender markdownText={content} />
         </div>
     );
 }

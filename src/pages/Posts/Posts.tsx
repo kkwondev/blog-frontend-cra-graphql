@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
 import PostsGrid from '../../components/PostsGrid';
 import PostWriteButton from '../../components/PostWriteButton';
-import getPostsApi from '../../hooks/query/posts/getPosts';
+import getPostsApi from '../../hooks/query/post/getPosts';
 
 // export interface PostsProps {}
 function Posts() {

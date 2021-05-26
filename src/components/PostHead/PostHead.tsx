@@ -1,25 +1,32 @@
 import { css } from '@emotion/react';
 import React from 'react';
+import getTags from '../../hooks/query/post/getTags';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
+import { responsePost } from '../../types/Post';
 import TagsGrid from '../TagsGrid';
 
-function PostHead() {
+export interface PostHeadProps {
+    post: responsePost;
+}
+
+function PostHead({ post }: PostHeadProps) {
+    const { data, loading } = getTags(post.id);
+    if (!data) return null;
     return (
         <div css={headBlock}>
-            <h1>제목입니다 제목</h1>
+            <h1>{post.title}</h1>
             <div css={information}>
-                <span className="username">username</span>
+                <span className="username">{post.user.nickname}</span>
                 <span className="separator">&middot;</span>
-                <span>2021년 5월 25일</span>
+                <span>{post.updatedAt}</span>
             </div>
-            <TagsGrid />
-            <div className="thumbnail">
-                <img
-                    src="https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png"
-                    alt="post-thumbnail"
-                />
-            </div>
+            <TagsGrid tags={data.getPostTags} />
+            {post.thumbnail_img ? (
+                <div className="thumbnail">
+                    <img src={post.thumbnail_img} alt="post-thumbnail" />
+                </div>
+            ) : null}
         </div>
     );
 }

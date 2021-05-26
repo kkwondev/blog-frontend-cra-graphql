@@ -46,3 +46,13 @@ export const GET_POST = gql`
         }
     }
 `;
+
+export const GET_POST_TAGS = gql`
+    query getPostTags($id: Float!) {
+        getPostTags(id: $id) {
+            tags {
+                title
+            }
+        }
+    }
+`;
