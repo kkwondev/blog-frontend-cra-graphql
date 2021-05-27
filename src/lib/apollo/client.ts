@@ -1,9 +1,13 @@
 import { ApolloClient, ApolloLink, concat, createHttpLink, InMemoryCache } from '@apollo/client';
-import { relayStylePagination } from '@apollo/client/utilities';
 
-const host = process.env.REACT_APP_ENV === 'local' ? 'http://localhost:3001/graphql' : process.env.REACT_APP_API_HOST;
+const host =
+    process.env.REACT_APP_ENV === 'local'
+        ? 'http://localhost:3001/graphql'
+        : (process.env.REACT_APP_API_HOST as string);
+
+const graphqlURI = host.concat('/graphql');
 const link = createHttpLink({
-    uri: host,
+    uri: graphqlURI,
     // credentials: true,
 });
 
