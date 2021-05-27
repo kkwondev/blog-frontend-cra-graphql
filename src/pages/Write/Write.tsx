@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { writeContentState, writeState, writeTitleState } from '../../atoms/writeState';
+import { writeContentState, writeState, writeTitleState, writeThumbnailState } from '../../atoms/writeState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
@@ -38,7 +38,7 @@ function Write({ history }: RouteComponentProps) {
         history.push('/');
     }
 
-    const test = async () => {
+    const imageUpload = async () => {
         const data = await s3Upload(file);
         setWriteData({
             ...writeData,
@@ -46,10 +46,17 @@ function Write({ history }: RouteComponentProps) {
         });
     };
 
+    const onResetThumbnail = () => {
+        setWriteData({
+            ...writeData,
+            thumbnail_img: '',
+        });
+    };
+
     useEffect(() => {
         // eslint-disable-next-line no-useless-return
         if (!file) return;
-        test();
+        imageUpload();
     }, [file, s3Upload]);
 
     useEffect(() => {
@@ -77,6 +84,7 @@ function Write({ history }: RouteComponentProps) {
                 onClose={onSettingClick}
                 onChange={onChange}
                 thumbnail_img={writeData.thumbnail_img}
+                onResetThumbnail={onResetThumbnail}
             />
         </>
     );

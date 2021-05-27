@@ -11,9 +11,10 @@ interface SettingWriteProps {
     onClose: () => void;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     thumbnail_img: string;
+    onResetThumbnail: () => void;
 }
 
-function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img }: SettingWriteProps) {
+function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img, onResetThumbnail }: SettingWriteProps) {
     const { data } = getCategory();
     if (!visible || !data) return null;
     return (
@@ -36,9 +37,14 @@ function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img }: S
                         <h2>썸네일 업로드</h2>
                         {/* TODO: 썸네일 업로드시 상태 구현 */}
                         {thumbnail_img ? (
-                            <div className="Image">
-                                <img src={thumbnail_img} alt="이미지" />
-                            </div>
+                            <>
+                                <button type="button" onClick={onResetThumbnail} className="remove">
+                                    제거
+                                </button>
+                                <div className="Image">
+                                    <img src={thumbnail_img} alt="이미지" />
+                                </div>
+                            </>
                         ) : (
                             <div className="Image">
                                 <MdImage />
@@ -117,7 +123,8 @@ const category = css`
 `;
 const imageUpload = css`
     width: 100%;
-    padding-top: 35.11%;
+    padding-top: 37.11%;
+    margin-bottom: 2rem;
     position: relative;
     box-sizing: border-box;
     .imageWrap {
@@ -127,7 +134,22 @@ const imageUpload = css`
         left: 0;
         top: 0;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.03);
-
+        button.remove {
+            background: none;
+            outline: none;
+            border: none;
+            font-size: 1rem;
+            color: ${palette.grey[600]};
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+            &:hover {
+                color: ${palette.grey[500]};
+            }
+            &:active {
+                color: ${palette.grey[700]};
+            }
+        }
         .Image {
             background: ${palette.grey[200]};
             width: 100%;
@@ -136,6 +158,7 @@ const imageUpload = css`
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            overflow: hidden;
             svg {
                 font-size: 7rem;
                 color: ${palette.grey[400]};

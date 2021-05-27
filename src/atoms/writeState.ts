@@ -44,3 +44,10 @@ export const writeContentState = selector({
         return get(writeState).content;
     },
 });
+
+export const writeThumbnailState = selector({
+    key: 'writeThumbnailState',
+    get: ({ get }) => {
+        return get(writeState).thumbnail_img;
+    },
+});
