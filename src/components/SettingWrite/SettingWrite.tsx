@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { MdImage } from 'react-icons/md';
+import getCategory from '../../hooks/query/category/getCategory';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
@@ -9,10 +10,12 @@ interface SettingWriteProps {
     onUpload: () => any;
     onClose: () => void;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    thumbnail_img: string;
 }
 
-function SettingWrite({ visible, onUpload, onClose, onChange }: SettingWriteProps) {
-    if (!visible) return null;
+function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img }: SettingWriteProps) {
+    const { data } = getCategory();
+    if (!visible || !data) return null;
     return (
         <div css={SettingWriteWrap}>
             <div className="setting">
@@ -20,19 +23,30 @@ function SettingWrite({ visible, onUpload, onClose, onChange }: SettingWriteProp
                     <h2>카테고리 선택</h2>
                     <select name="categoryName" onChange={e => onChange(e)}>
                         <option value="">선택</option>
-                        <option value="개발">개발</option>
+                        {data.map((data: { name: string | undefined }, index: number) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <option value={data.name} key={index}>
+                                {data.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div css={imageUpload}>
                     <div className="imageWrap">
                         <h2>썸네일 업로드</h2>
                         {/* TODO: 썸네일 업로드시 상태 구현 */}
-                        <div className="notImage">
-                            <MdImage />
-                            <button type="button" onClick={onUpload}>
-                                이미지 업로드
-                            </button>
-                        </div>
+                        {thumbnail_img ? (
+                            <div className="Image">
+                                <img src={thumbnail_img} alt="이미지" />
+                            </div>
+                        ) : (
+                            <div className="Image">
+                                <MdImage />
+                                <button type="button" onClick={onUpload}>
+                                    이미지 업로드
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div css={btnWrap}>
@@ -114,7 +128,7 @@ const imageUpload = css`
         top: 0;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.03);
 
-        .notImage {
+        .Image {
             background: ${palette.grey[200]};
             width: 100%;
             height: 100%;

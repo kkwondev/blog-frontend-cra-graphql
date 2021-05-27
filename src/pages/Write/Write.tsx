@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 import { userState } from '../../atoms/authState';
-import { writeContentState, writeTitleState } from '../../atoms/writeState';
+import { writeContentState, writeState, writeTitleState } from '../../atoms/writeState';
 import MarkdownEditor from '../../components/MarkdownEditor/MarkdownEditor';
 import MarkdownRender from '../../components/MarkdownRender/MarkdownRender';
 import PostWriteTitle from '../../components/PostWriteTitle';
@@ -12,16 +12,19 @@ import TagsInput from '../../components/TagsInput/TagsInput';
 import WriteFooter from '../../components/WriteFooter/WriteFooter';
 import useCreatePost from '../../hooks/useCreatePost';
 import useUpload from '../../hooks/useUpload';
+import { s3Upload } from '../../lib/api/s3Upload';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
+    const [writeData, setWriteData] = useRecoilState(writeState);
+    const reset = useResetRecoilState(writeState);
     const title = useRecoilValue(writeTitleState);
     const content = useRecoilValue(writeContentState);
     const [visible, setVisible] = useState(false);
-    const [upload] = useUpload();
+    const [upload, file] = useUpload();
     const { onChange } = useCreatePost();
 
     const onSettingClick = () => {
@@ -34,6 +37,26 @@ function Write({ history }: RouteComponentProps) {
     if (!user) {
         history.push('/');
     }
+
+    const test = async () => {
+        const data = await s3Upload(file);
+        setWriteData({
+            ...writeData,
+            thumbnail_img: data.file,
+        });
+    };
+
+    useEffect(() => {
+        // eslint-disable-next-line no-useless-return
+        if (!file) return;
+        test();
+    }, [file, s3Upload]);
+
+    useEffect(() => {
+        return () => {
+            reset();
+        };
+    }, []);
     return (
         <>
             <div css={left}>
@@ -48,7 +71,13 @@ function Write({ history }: RouteComponentProps) {
                     <MarkdownRender markdownText={content} />
                 </div>
             </div>
-            <SettingWrite visible={visible} onUpload={onUpload} onClose={onSettingClick} onChange={onChange} />
+            <SettingWrite
+                visible={visible}
+                onUpload={onUpload}
+                onClose={onSettingClick}
+                onChange={onChange}
+                thumbnail_img={writeData.thumbnail_img}
+            />
         </>
     );
 }

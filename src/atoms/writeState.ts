@@ -4,7 +4,7 @@ export interface writeState {
     title: string;
     content: string;
     // eslint-disable-next-line camelcase
-    thumnbnail_img: string;
+    thumbnail_img: string;
     categoryName: string;
     tags: string[];
     user: string;
@@ -13,7 +13,7 @@ export interface writeState {
 const intialState: writeState = {
     title: '',
     content: '',
-    thumnbnail_img: '',
+    thumbnail_img: '',
     categoryName: '',
     tags: [],
     user: '',
