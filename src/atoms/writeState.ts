@@ -7,7 +7,6 @@ export interface writeState {
     thumbnail_img: string;
     categoryName: string;
     tags: string[];
-    user: string;
 }
 
 const intialState: writeState = {
@@ -16,7 +15,6 @@ const intialState: writeState = {
     thumbnail_img: '',
     categoryName: '',
     tags: [],
-    user: '',
 };
 
 export const writeState = atom({

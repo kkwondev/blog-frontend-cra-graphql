@@ -56,3 +56,27 @@ export const GET_POST_TAGS = gql`
         }
     }
 `;
+
+export const SAVE_POST = gql`
+    mutation createPost($post: CreatePostInput!) {
+        createPost(post: $post) {
+            success
+            post {
+                id
+                title
+                content
+                slug
+                thumbnail_img
+                updatedAt
+                user {
+                    email
+                    nickname
+                    photo_url
+                }
+                category {
+                    name
+                }
+            }
+        }
+    }
+`;

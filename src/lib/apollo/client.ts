@@ -42,11 +42,13 @@ const cache = new InMemoryCache({
             },
         },
     },
+    // eslint-disable-next-line no-underscore-dangle
 });
 
 const client = new ApolloClient({
     link: concat(authMiddleware, link),
     cache,
 });
+(window as any).client = client;
 
 export default client;

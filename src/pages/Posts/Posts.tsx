@@ -7,7 +7,7 @@ import getPostsApi from '../../hooks/query/post/getPosts';
 
 // export interface PostsProps {}
 function Posts() {
-    const { data, onLoadMore, hasMorePost, loading } = getPostsApi();
+    const { data, onLoadMore, hasMorePost, loading, refetch } = getPostsApi();
 
     const user = useRecoilValue(userState);
 
@@ -16,7 +16,7 @@ function Posts() {
         const { scrollTop } = document.documentElement;
         const { clientHeight } = document.documentElement;
 
-        if (scrollTop + clientHeight >= scrollHeight && hasMorePost === true) {
+        if (scrollTop + clientHeight >= scrollHeight && hasMorePost) {
             onLoadMore(data[data.length - 1].id);
         }
     };
@@ -27,6 +27,7 @@ function Posts() {
             window.removeEventListener('scroll', handleScroll);
         };
     });
+
     if (!data) return null;
     return (
         <>

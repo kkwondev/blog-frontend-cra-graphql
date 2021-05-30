@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdImage } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 import getCategory from '../../hooks/query/category/getCategory';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
@@ -12,9 +13,18 @@ interface SettingWriteProps {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     thumbnail_img: string;
     onResetThumbnail: () => void;
+    onSubmit: () => void;
 }
 
-function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img, onResetThumbnail }: SettingWriteProps) {
+function SettingWrite({
+    visible,
+    onUpload,
+    onClose,
+    onChange,
+    thumbnail_img,
+    onResetThumbnail,
+    onSubmit,
+}: SettingWriteProps) {
     const { data } = getCategory();
     if (!visible || !data) return null;
     return (
@@ -56,7 +66,9 @@ function SettingWrite({ visible, onUpload, onClose, onChange, thumbnail_img, onR
                     </div>
                 </div>
                 <div css={btnWrap}>
-                    <button type="button">등록</button>
+                    <button type="button" onClick={onSubmit}>
+                        등록
+                    </button>
                     <button type="button" onClick={onClose}>
                         취소
                     </button>

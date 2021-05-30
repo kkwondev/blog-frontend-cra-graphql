@@ -1,12 +1,33 @@
+import { useApolloClient, useMutation } from '@apollo/client';
 import React, { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { writeState, writeTagsState } from '../atoms/writeState';
+import { SAVE_POST } from '../lib/apollo/queries/post';
 
 export default function useCreatePost() {
+    const history = useHistory();
     const [write, setWrite] = useRecoilState(writeState);
     const tags = useRecoilValue(writeTagsState);
     const [tagValue, setTagValue] = useState('');
     const ignore = useRef(false);
+    const [savePost] = useMutation(SAVE_POST, {
+        variables: { post: write },
+        // update(cache, { data: { createPost } }) {
+        //     cache.modify({
+        //         fields: {
+        //             getPosts(existing) {
+        //                 console.log(existing.post);
+        //                 console.log(createPost);
+        //                 return {
+        //                     ...existing,
+        //                     post: [...existing.post, createPost.post],
+        //                 };
+        //             },
+        //         },
+        //     });
+        // },
+    });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setWrite({
@@ -80,6 +101,23 @@ export default function useCreatePost() {
         });
     };
 
+    const onSubmit = async () => {
+        if (write.title === '' || write.content === '' || write.categoryName === '') {
+            alert('필수 항목을 입력하세요.');
+            // eslint-disable-next-line no-useless-return
+            return;
+        }
+        try {
+            const response = await savePost();
+            if (!response || !response.data) return;
+            const { slug } = response.data.createPost.post;
+            history.push(`/post/${slug}`);
+        } catch (e) {
+            // eslint-disable-next-line no-alert
+            alert('포스트 작성 실패');
+        }
+    };
+
     return {
         write,
         tags,
@@ -89,5 +127,6 @@ export default function useCreatePost() {
         onKeyDown,
         onRemove,
         tagValue,
+        onSubmit,
     };
 }

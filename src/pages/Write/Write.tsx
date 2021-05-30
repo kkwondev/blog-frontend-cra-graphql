@@ -25,7 +25,7 @@ function Write({ history }: RouteComponentProps) {
     const content = useRecoilValue(writeContentState);
     const [visible, setVisible] = useState(false);
     const [upload, file] = useUpload();
-    const { onChange } = useCreatePost();
+    const { onChange, onSubmit } = useCreatePost();
 
     const onSettingClick = () => {
         setVisible(!visible);
@@ -62,6 +62,7 @@ function Write({ history }: RouteComponentProps) {
     useEffect(() => {
         return () => {
             reset();
+            setVisible(false);
         };
     }, []);
     return (
@@ -85,6 +86,7 @@ function Write({ history }: RouteComponentProps) {
                 onChange={onChange}
                 thumbnail_img={writeData.thumbnail_img}
                 onResetThumbnail={onResetThumbnail}
+                onSubmit={onSubmit}
             />
         </>
     );
