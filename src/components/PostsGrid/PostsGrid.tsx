@@ -25,13 +25,10 @@ function PostsGrid({ posts, loading }: postGridProps) {
     return (
         <section css={block}>
             <article css={grid}>
-                {posts.length > 0
-                    ? posts.map((item: responsePost, index) => (
-                          // eslint-disable-next-line react/no-array-index-key
-                          <PostsGridItem post={item} key={index} />
-                      ))
-                    : // eslint-disable-next-line react/no-array-index-key
-                      Array.from({ length: 10 }).map((_, i) => <PostsGridItemSkeleton key={i} />)}
+                {posts.map((item: responsePost, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <PostsGridItem post={item} key={index} />
+                ))}
                 {loading &&
                     Array.from({ length: 10 }).map((_, i) => (
                         // eslint-disable-next-line react/no-array-index-key

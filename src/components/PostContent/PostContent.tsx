@@ -6,9 +6,11 @@ import MarkdownRender from '../MarkdownRender';
 
 export interface PostContentProps {
     content: string;
+    loading: boolean;
 }
 
-function PostContent({ content }: PostContentProps) {
+function PostContent({ content, loading }: PostContentProps) {
+    if (loading) return <div>loading...</div>;
     return (
         <div css={contentBlock}>
             <MarkdownRender markdownText={content} />

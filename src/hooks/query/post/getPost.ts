@@ -9,9 +9,11 @@ export interface PostParams {
 
 export default function getPost() {
     const { slug } = useParams<PostParams>();
-    const { data } = useQuery(GET_POST, { variables: { url_slug: slug } });
+    const { data, loading, refetch } = useQuery(GET_POST, { variables: { url_slug: slug } });
 
     return {
         data,
+        loading,
+        refetch,
     };
 }

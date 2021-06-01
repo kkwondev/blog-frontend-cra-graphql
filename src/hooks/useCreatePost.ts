@@ -11,6 +11,7 @@ export default function useCreatePost() {
     const tags = useRecoilValue(writeTagsState);
     const [tagValue, setTagValue] = useState('');
     const ignore = useRef(false);
+    const client = useApolloClient();
     const [savePost] = useMutation(SAVE_POST, {
         variables: { post: write },
         // update(cache, { data: { createPost } }) {

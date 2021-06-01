@@ -26,12 +26,11 @@ function Posts() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    });
+    }, []);
 
-    if (!data) return null;
     return (
         <>
-            <PostsGrid posts={data} loading={loading} />
+            <PostsGrid posts={data || []} loading={!data || loading} />
             {user ? <PostWriteButton /> : null}
         </>
     );

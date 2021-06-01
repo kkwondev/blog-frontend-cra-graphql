@@ -9,11 +9,13 @@ import TagsGrid from '../TagsGrid';
 
 export interface PostHeadProps {
     post: responsePost;
+    postLoading: boolean;
 }
 
-function PostHead({ post }: PostHeadProps) {
+function PostHead({ post, postLoading }: PostHeadProps) {
+    if (!post) return null;
     const { data, loading } = getTags(post.id);
-    if (!data) return null;
+    if (postLoading || loading) return <div>Loading</div>;
     return (
         <div css={headBlock}>
             <h1>{post.title}</h1>

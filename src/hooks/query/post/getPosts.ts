@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { GET_POSTS } from '../../../lib/apollo/queries/post';
 
 export default function getPosts() {
-    const { data, loading, fetchMore, refetch } = useQuery(
+    const { data, loading, fetchMore, refetch, error } = useQuery(
         GET_POSTS,
         {
             notifyOnNetworkStatusChange: true,
@@ -19,6 +19,7 @@ export default function getPosts() {
                 },
             });
         },
+
         [fetchMore]
     );
     return {
@@ -27,5 +28,6 @@ export default function getPosts() {
         loading,
         onLoadMore,
         refetch,
+        error,
     };
 }
