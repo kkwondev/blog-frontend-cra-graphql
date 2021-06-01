@@ -26,7 +26,7 @@ function App() {
                         <Route path={['/', '/posts']} exact>
                             <Posts />
                         </Route>
-                        <Route path="/categories" exact>
+                        <Route path="/categories/:name" exact>
                             <Categories />
                         </Route>
                     </AppLayout.Main>

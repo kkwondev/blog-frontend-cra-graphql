@@ -47,6 +47,30 @@ export const GET_POST = gql`
     }
 `;
 
+export const GET_CATEGORY_POST = gql`
+    query getCategoryPost($name: String!, $lastId: Float) {
+        getCategoryPost(name: $name, lastId: $lastId) {
+            post {
+                id
+                title
+                content
+                slug
+                thumbnail_img
+                updatedAt
+                user {
+                    email
+                    nickname
+                    photo_url
+                }
+                category {
+                    name
+                }
+            }
+            hasMorePost
+        }
+    }
+`;
+
 export const GET_POST_TAGS = gql`
     query getPostTags($id: Float!) {
         getPostTags(id: $id) {

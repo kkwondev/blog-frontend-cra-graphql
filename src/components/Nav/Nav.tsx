@@ -17,7 +17,7 @@ function Nav({ match }: RouteComponentProps) {
                         전체
                     </Link>
                 </li>
-                {/* {data.map(({ name }: any, index: number) => (
+                {data.map(({ name }: any, index: number) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <li key={index}>
                         <Link
@@ -27,7 +27,7 @@ function Nav({ match }: RouteComponentProps) {
                             {name}
                         </Link>
                     </li>
-                ))} */}
+                ))}
             </ul>
         </div>
     );

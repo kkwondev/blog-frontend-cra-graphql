@@ -39,6 +39,19 @@ const cache = new InMemoryCache({
                         };
                     },
                 },
+                getCategoryPost: {
+                    keyArgs: [],
+                    read(existing) {
+                        return existing;
+                    },
+                    merge(existing, incoming) {
+                        if (!existing) return incoming;
+                        return {
+                            post: [...existing.post, ...incoming.post],
+                            hasMorePost: incoming.hasMorePost,
+                        };
+                    },
+                },
             },
         },
     },

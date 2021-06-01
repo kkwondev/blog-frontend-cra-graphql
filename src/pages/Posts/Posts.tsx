@@ -7,7 +7,7 @@ import getPostsApi from '../../hooks/query/post/getPosts';
 
 // export interface PostsProps {}
 function Posts() {
-    const { data, onLoadMore, hasMorePost, loading, refetch } = getPostsApi();
+    const { data, onLoadMore, hasMorePost, loading } = getPostsApi();
 
     const user = useRecoilValue(userState);
 
@@ -26,7 +26,7 @@ function Posts() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [handleScroll]);
 
     return (
         <>
