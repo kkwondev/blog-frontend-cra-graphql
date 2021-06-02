@@ -12,7 +12,7 @@ export interface PostsGridItemProps {
 
 function PostsGridItem({ post }: PostsGridItemProps) {
     return (
-        <Link to={`post/${post.slug}`} css={card}>
+        <Link to={`/post/${post.slug}`} css={card}>
             <div>
                 {post.thumbnail_img ? (
                     <div className="thumbnail">
