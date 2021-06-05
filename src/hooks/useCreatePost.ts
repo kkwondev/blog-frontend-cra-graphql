@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { writeState, writeTagsState } from '../atoms/writeState';
-import { SAVE_POST } from '../lib/apollo/queries/post';
+import { EDIT_POST, SAVE_POST } from '../lib/apollo/queries/post';
 
 export default function useCreatePost() {
     const history = useHistory();
@@ -23,6 +23,38 @@ export default function useCreatePost() {
             },
         },
     });
+
+    const [editPost] = useMutation(EDIT_POST, {
+        variables: {
+            id: write.id,
+            post: {
+                title: write.title,
+                content: write.content,
+                tags: write.tags,
+                thumbnail_img: write.thumbnail_img === '' ? null : write.thumbnail_img,
+                categoryName: write.categoryName,
+            },
+        },
+    });
+
+    const onEditConfirm = async () => {
+        if (write.title === '' || write.content === '' || write.categoryName === '') {
+            alert('필수 항목을 입력하세요.');
+            // eslint-disable-next-line no-useless-return
+            return;
+        }
+        try {
+            const response = await editPost();
+            if (!response || !response.data) return;
+            const { slug } = response.data.updatePost.post;
+            await client.resetStore();
+            history.push(`/post/${slug}`);
+        } catch (e) {
+            // eslint-disable-next-line no-alert
+            alert('포스트 수정 실패');
+            console.error(e);
+        }
+    };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setWrite({
@@ -125,5 +157,6 @@ export default function useCreatePost() {
         onRemove,
         tagValue,
         onSubmit,
+        onEditConfirm,
     };
 }

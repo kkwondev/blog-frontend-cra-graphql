@@ -10,7 +10,6 @@ import PostWriteTitle from '../../components/PostWriteTitle';
 import SettingWrite from '../../components/SettingWrite/SettingWrite';
 import TagsInput from '../../components/TagsInput/TagsInput';
 import WriteFooter from '../../components/WriteFooter/WriteFooter';
-import getPost from '../../hooks/query/post/getPost';
 import useCreatePost from '../../hooks/useCreatePost';
 import useUpload from '../../hooks/useUpload';
 import { s3Upload } from '../../lib/api/s3Upload';
@@ -31,8 +30,8 @@ function Write({ history }: RouteComponentProps) {
     const content = useRecoilValue(writeContentState);
     const [visible, setVisible] = useState(false);
     const [upload, file] = useUpload();
-    const { onChange, onSubmit } = useCreatePost();
-    const { onEditConfirm } = getPost();
+    const { onChange, onSubmit, onEditConfirm } = useCreatePost();
+    // const { onEditConfirm } = getPost();
 
     const confirmText = params.slug ? '수정하기' : '등록하기';
 

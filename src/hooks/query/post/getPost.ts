@@ -1,9 +1,9 @@
 import { useApolloClient, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { writeState } from '../../../atoms/writeState';
-import { DELETE_POST, EDIT_POST, GET_POST, GET_POST_TAGS } from '../../../lib/apollo/queries/post';
+import { DELETE_POST, GET_POST, GET_POST_TAGS } from '../../../lib/apollo/queries/post';
 
 export interface PostParams {
     slug: string;
@@ -12,8 +12,7 @@ export interface PostParams {
 export default function getPost() {
     const history = useHistory();
     const client = useApolloClient();
-    // const setPost = useSetRecoilState(writeState);
-    const [write, setWrite] = useRecoilState(writeState);
+    const setWrite = useSetRecoilState(writeState);
     const { slug } = useParams<PostParams>();
     const { data, loading } = useQuery(GET_POST, { variables: { url_slug: slug } });
     const [tags, { data: tagsData, loading: tagsLoading }] = useLazyQuery(GET_POST_TAGS, {
@@ -21,19 +20,6 @@ export default function getPost() {
     });
     const [deletePost] = useMutation(DELETE_POST, {
         variables: { postId: data?.readPost.post.id },
-    });
-
-    const [editPost] = useMutation(EDIT_POST, {
-        variables: {
-            id: data?.readPost.post.id,
-            post: {
-                title: write.title,
-                content: write.content,
-                tags: write.tags,
-                thumbnail_img: write.thumbnail_img === '' ? null : write.thumbnail_img,
-                categoryName: write.categoryName,
-            },
-        },
     });
 
     useEffect(() => {
@@ -71,25 +57,6 @@ export default function getPost() {
         history.push(`/write/${data?.readPost.post.slug}`);
     };
 
-    const onEditConfirm = async () => {
-        if (write.title === '' || write.content === '' || write.categoryName === '') {
-            alert('필수 항목을 입력하세요.');
-            // eslint-disable-next-line no-useless-return
-            return;
-        }
-        try {
-            const response = await editPost();
-            if (!response || !response.data) return;
-            const { slug } = response.data.updatePost.post;
-            await client.resetStore();
-            history.push(`/post/${slug}`);
-        } catch (e) {
-            // eslint-disable-next-line no-alert
-            alert('포스트 수정 실패');
-            console.error(e);
-        }
-    };
-
     return {
         data,
         loading,
@@ -98,6 +65,5 @@ export default function getPost() {
         tagsLoading,
         tags,
         onEdit,
-        onEditConfirm,
     };
 }
