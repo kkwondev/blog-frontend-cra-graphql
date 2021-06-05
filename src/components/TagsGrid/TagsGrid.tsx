@@ -4,8 +4,10 @@ import TagsGridItem from '../TagsGridItem';
 
 export interface TagsGridProps {
     tags: responseTag[];
+    loading: boolean;
 }
-function TagsGrid({ tags }: TagsGridProps) {
+function TagsGrid({ tags, loading }: TagsGridProps) {
+    if (loading) return <div>loading...</div>;
     return (
         <>
             {tags.map((tag, index) => (

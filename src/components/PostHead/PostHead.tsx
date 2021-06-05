@@ -3,28 +3,35 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
-import getPost from '../../hooks/query/post/getPost';
-import getTags from '../../hooks/query/post/getTags';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
-import { responsePost } from '../../types/Post';
+import { responsePost, responseTag } from '../../types/Post';
 import PopupOKCancel from '../PopupOKCancel/PopupOKCancel';
 import TagsGrid from '../TagsGrid';
 
 export interface PostHeadProps {
     post: responsePost;
     postLoading: boolean;
+    tags: responseTag[];
+    tagsLoading: boolean;
     toggleAskRemove: () => any;
     onConfirmRemove: () => any;
     askRemove: boolean;
 }
 
-function PostHead({ post, postLoading, toggleAskRemove, askRemove, onConfirmRemove }: PostHeadProps) {
+function PostHead({
+    post,
+    postLoading,
+    toggleAskRemove,
+    askRemove,
+    onConfirmRemove,
+    tags,
+    tagsLoading,
+}: PostHeadProps) {
     if (!post) return null;
     const user = useRecoilValue(userState);
-    const { data, loading } = getTags(post.id);
 
-    if (postLoading || loading) return <div>Loading</div>;
+    if (postLoading || tagsLoading) return <div>Loading</div>;
     return (
         <div css={headBlock}>
             <h1>{post.title}</h1>
@@ -41,7 +48,7 @@ function PostHead({ post, postLoading, toggleAskRemove, askRemove, onConfirmRemo
                 <span className="separator">&middot;</span>
                 <span>{dayjs(post.updatedAt).format('YYYY년 MM월 DD일 HH시 mm분')}</span>
             </div>
-            <TagsGrid tags={data.getPostTags} />
+            {tags && <TagsGrid tags={tags} loading={tagsLoading} />}
             {post.thumbnail_img ? (
                 <div className="thumbnail">
                     <img src={post.thumbnail_img} alt="post-thumbnail" />

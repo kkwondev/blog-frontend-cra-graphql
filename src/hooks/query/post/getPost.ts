@@ -1,7 +1,7 @@
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useApolloClient, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { DELETE_POST, GET_POST } from '../../../lib/apollo/queries/post';
+import { DELETE_POST, GET_POST, GET_POST_TAGS } from '../../../lib/apollo/queries/post';
 
 export interface PostParams {
     slug: string;
@@ -12,6 +12,9 @@ export default function getPost() {
     const client = useApolloClient();
     const { slug } = useParams<PostParams>();
     const { data, loading } = useQuery(GET_POST, { variables: { url_slug: slug } });
+    const [tags, { data: tagsData, loading: tagsLoading }] = useLazyQuery(GET_POST_TAGS, {
+        variables: { id: data?.readPost.post.id },
+    });
     const [deletePost] = useMutation(DELETE_POST, {
         variables: { postId: data?.readPost.post.id },
     });
@@ -39,5 +42,8 @@ export default function getPost() {
         data,
         loading,
         onRemove,
+        tagsData: tagsData?.getPostTags,
+        tagsLoading,
+        tags,
     };
 }
