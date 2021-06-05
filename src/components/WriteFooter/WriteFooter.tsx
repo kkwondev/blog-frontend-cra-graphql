@@ -6,9 +6,10 @@ import media from '../../lib/styles/media';
 
 interface WriteFooterProps {
     settingClick: () => void;
+    confirmText: string;
 }
 
-function WriteFooter({ settingClick }: WriteFooterProps) {
+function WriteFooter({ settingClick, confirmText }: WriteFooterProps) {
     const history = useHistory();
     const onGoBack = () => {
         history.goBack();
@@ -20,7 +21,7 @@ function WriteFooter({ settingClick }: WriteFooterProps) {
                 <span>나가기</span>
             </button>
             <button type="button" css={StyledButton} onClick={settingClick}>
-                등록하기
+                {confirmText}
             </button>
         </div>
     );

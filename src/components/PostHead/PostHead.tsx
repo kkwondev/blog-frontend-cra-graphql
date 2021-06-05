@@ -16,6 +16,7 @@ export interface PostHeadProps {
     tagsLoading: boolean;
     toggleAskRemove: () => any;
     onConfirmRemove: () => any;
+    onEdit: () => any;
     askRemove: boolean;
 }
 
@@ -27,6 +28,7 @@ function PostHead({
     onConfirmRemove,
     tags,
     tagsLoading,
+    onEdit,
 }: PostHeadProps) {
     if (!post) return null;
     const user = useRecoilValue(userState);
@@ -37,7 +39,9 @@ function PostHead({
             <h1>{post.title}</h1>
             {user?.email === post.user.email ? (
                 <div css={editRemoveWrap}>
-                    <button type="button">수정</button>
+                    <button type="button" onClick={onEdit}>
+                        수정
+                    </button>
                     <button type="button" onClick={toggleAskRemove}>
                         삭제
                     </button>

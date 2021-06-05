@@ -1,17 +1,18 @@
 import { css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { MdImage } from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
 import getCategory from '../../hooks/query/category/getCategory';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
 interface SettingWriteProps {
     visible: boolean;
+    confirmText: string;
     onUpload: () => any;
     onClose: () => void;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     thumbnail_img: string;
+    categoryName: string;
     onResetThumbnail: () => void;
     onSubmit: () => void;
 }
@@ -24,6 +25,8 @@ function SettingWrite({
     thumbnail_img,
     onResetThumbnail,
     onSubmit,
+    categoryName,
+    confirmText,
 }: SettingWriteProps) {
     const { data } = getCategory();
     if (!visible || !data) return null;
@@ -32,7 +35,7 @@ function SettingWrite({
             <div className="setting">
                 <div css={category}>
                     <h2>카테고리 선택</h2>
-                    <select name="categoryName" onChange={e => onChange(e)}>
+                    <select name="categoryName" onChange={e => onChange(e)} value={categoryName}>
                         <option value="">선택</option>
                         {data.map((data: { name: string | undefined }, index: number) => (
                             // eslint-disable-next-line react/no-array-index-key
@@ -67,7 +70,7 @@ function SettingWrite({
                 </div>
                 <div css={btnWrap}>
                     <button type="button" onClick={onSubmit}>
-                        등록
+                        {confirmText}
                     </button>
                     <button type="button" onClick={onClose}>
                         취소

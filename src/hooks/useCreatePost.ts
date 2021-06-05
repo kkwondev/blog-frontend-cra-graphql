@@ -13,7 +13,15 @@ export default function useCreatePost() {
     const ignore = useRef(false);
     const client = useApolloClient();
     const [savePost] = useMutation(SAVE_POST, {
-        variables: { post: write },
+        variables: {
+            post: {
+                title: write.title,
+                content: write.content,
+                tags: write.tags,
+                thumbnail_img: write.thumbnail_img === '' ? null : write.thumbnail_img,
+                categoryName: write.categoryName,
+            },
+        },
     });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {

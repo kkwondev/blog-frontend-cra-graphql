@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 
 export interface writeState {
+    id?: number;
     title: string;
     content: string;
     // eslint-disable-next-line camelcase
@@ -10,6 +11,7 @@ export interface writeState {
 }
 
 const intialState: writeState = {
+    id: null || undefined,
     title: '',
     content: '',
     thumbnail_img: '',

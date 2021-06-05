@@ -47,10 +47,10 @@ function App() {
                     </AppLayout.Post>
                 </AppLayout>
             </Route>
-            <Route path="/write">
+            <Route path={['/write', '/write/:slug']}>
                 <AppLayout>
                     <AppLayout.Write>
-                        <Route path="/write" exact>
+                        <Route path={['/write', '/write/:slug']} exact>
                             <Write />
                         </Route>
                     </AppLayout.Write>

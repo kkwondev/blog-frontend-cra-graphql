@@ -6,7 +6,7 @@ import getPost from '../../hooks/query/post/getPost';
 // export interface PostProps {}
 
 function Post() {
-    const { data, loading, onRemove, tagsData, tagsLoading, tags } = getPost();
+    const { data, loading, onRemove, tagsData, tagsLoading, tags, onEdit } = getPost();
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -31,6 +31,7 @@ function Post() {
                 toggleAskRemove={toggleAskRemove}
                 onConfirmRemove={onConfirmRemove}
                 askRemove={visible}
+                onEdit={onEdit}
                 tags={tagsData}
                 tagsLoading={tagsLoading}
             />

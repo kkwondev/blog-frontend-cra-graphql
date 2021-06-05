@@ -4,12 +4,19 @@ import palette from '../../lib/styles/palette';
 
 interface PostWriteTitleProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    title: string;
 }
 
-function PostWriteTitle({ onChange }: PostWriteTitleProps) {
+function PostWriteTitle({ onChange, title }: PostWriteTitleProps) {
     return (
         <div css={PostWriteTitleWrap}>
-            <input type="text" placeholder="제목을 입력해주세요." onChange={e => onChange(e)} name="title" />
+            <input
+                type="text"
+                placeholder="제목을 입력해주세요."
+                onChange={e => onChange(e)}
+                name="title"
+                value={title}
+            />
         </div>
     );
 }

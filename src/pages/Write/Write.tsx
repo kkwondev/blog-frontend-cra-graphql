@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, useParams, withRouter } from 'react-router-dom';
 import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 import { userState } from '../../atoms/authState';
 import { writeContentState, writeState, writeTitleState, writeThumbnailState } from '../../atoms/writeState';
@@ -10,15 +10,21 @@ import PostWriteTitle from '../../components/PostWriteTitle';
 import SettingWrite from '../../components/SettingWrite/SettingWrite';
 import TagsInput from '../../components/TagsInput/TagsInput';
 import WriteFooter from '../../components/WriteFooter/WriteFooter';
+import getPost from '../../hooks/query/post/getPost';
 import useCreatePost from '../../hooks/useCreatePost';
 import useUpload from '../../hooks/useUpload';
 import { s3Upload } from '../../lib/api/s3Upload';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
+interface WriteParams {
+    slug: string;
+}
+
 export interface WriteProps {}
 function Write({ history }: RouteComponentProps) {
     const user = useRecoilValue(userState);
+    const params = useParams<WriteParams>();
     const [writeData, setWriteData] = useRecoilState(writeState);
     const reset = useResetRecoilState(writeState);
     const title = useRecoilValue(writeTitleState);
@@ -26,6 +32,9 @@ function Write({ history }: RouteComponentProps) {
     const [visible, setVisible] = useState(false);
     const [upload, file] = useUpload();
     const { onChange, onSubmit } = useCreatePost();
+    const { onEditConfirm } = getPost();
+
+    const confirmText = params.slug ? '수정하기' : '등록하기';
 
     const onSettingClick = () => {
         setVisible(!visible);
@@ -68,10 +77,10 @@ function Write({ history }: RouteComponentProps) {
     return (
         <>
             <div css={left}>
-                <PostWriteTitle onChange={onChange} />
+                <PostWriteTitle onChange={onChange} title={title} />
                 <TagsInput />
                 <MarkdownEditor />
-                <WriteFooter settingClick={onSettingClick} />
+                <WriteFooter settingClick={onSettingClick} confirmText={confirmText} />
             </div>
             <div css={right}>
                 <div className="preview">
@@ -84,9 +93,11 @@ function Write({ history }: RouteComponentProps) {
                 onUpload={onUpload}
                 onClose={onSettingClick}
                 onChange={onChange}
+                categoryName={writeData.categoryName}
                 thumbnail_img={writeData.thumbnail_img}
                 onResetThumbnail={onResetThumbnail}
-                onSubmit={onSubmit}
+                onSubmit={params.slug ? onEditConfirm : onSubmit}
+                confirmText={confirmText}
             />
         </>
     );

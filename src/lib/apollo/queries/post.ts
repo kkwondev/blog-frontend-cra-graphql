@@ -105,6 +105,30 @@ export const SAVE_POST = gql`
     }
 `;
 
+export const EDIT_POST = gql`
+    mutation updatePost($id: Float!, $post: UpdatePostInput!) {
+        updatePost(id: $id, post: $post) {
+            success
+            post {
+                id
+                title
+                content
+                slug
+                thumbnail_img
+                updatedAt
+                user {
+                    email
+                    nickname
+                    photo_url
+                }
+                category {
+                    name
+                }
+            }
+        }
+    }
+`;
+
 export const DELETE_POST = gql`
     mutation deletePost($postId: Float!) {
         deletePost(postId: $postId) {
