@@ -1,24 +1,41 @@
 import { css } from '@emotion/react';
 import dayjs from 'dayjs';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms/authState';
+import getPost from '../../hooks/query/post/getPost';
 import getTags from '../../hooks/query/post/getTags';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 import { responsePost } from '../../types/Post';
+import PopupOKCancel from '../PopupOKCancel/PopupOKCancel';
 import TagsGrid from '../TagsGrid';
 
 export interface PostHeadProps {
     post: responsePost;
     postLoading: boolean;
+    toggleAskRemove: () => any;
+    onConfirmRemove: () => any;
+    askRemove: boolean;
 }
 
-function PostHead({ post, postLoading }: PostHeadProps) {
+function PostHead({ post, postLoading, toggleAskRemove, askRemove, onConfirmRemove }: PostHeadProps) {
     if (!post) return null;
+    const user = useRecoilValue(userState);
     const { data, loading } = getTags(post.id);
+
     if (postLoading || loading) return <div>Loading</div>;
     return (
         <div css={headBlock}>
             <h1>{post.title}</h1>
+            {user?.email === post.user.email ? (
+                <div css={editRemoveWrap}>
+                    <button type="button">수정</button>
+                    <button type="button" onClick={toggleAskRemove}>
+                        삭제
+                    </button>
+                </div>
+            ) : null}
             <div css={information}>
                 <span className="username">{post.user.nickname}</span>
                 <span className="separator">&middot;</span>
@@ -30,6 +47,14 @@ function PostHead({ post, postLoading }: PostHeadProps) {
                     <img src={post.thumbnail_img} alt="post-thumbnail" />
                 </div>
             ) : null}
+            <PopupOKCancel
+                visible={askRemove}
+                title="포스트 삭제"
+                onCancel={toggleAskRemove}
+                onConfirm={onConfirmRemove}
+            >
+                정말로 삭제하시겠습니까?
+            </PopupOKCancel>
         </div>
     );
 }
@@ -74,6 +99,34 @@ const information = css`
     }
     .separator {
         margin: 0 0.5rem;
+    }
+`;
+
+const editRemoveWrap = css`
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -1.25rem;
+    ${media.medium} {
+        margin-top: -0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    button {
+        padding: 0;
+        outline: none;
+        border: none;
+        background: none;
+        font-size: inherit;
+        cursor: pointer;
+        color: ${palette.grey[600]};
+        &:hover {
+            color: ${palette.grey[900]};
+        }
+        ${media.small} {
+            font-size: 0.875rem;
+        }
+    }
+    button + button {
+        margin-left: 0.5rem;
     }
 `;
 

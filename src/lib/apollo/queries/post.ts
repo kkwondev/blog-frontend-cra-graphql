@@ -104,3 +104,12 @@ export const SAVE_POST = gql`
         }
     }
 `;
+
+export const DELETE_POST = gql`
+    mutation deletePost($postId: Float!) {
+        deletePost(postId: $postId) {
+            success
+            error
+        }
+    }
+`;
