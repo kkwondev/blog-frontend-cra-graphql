@@ -27,7 +27,6 @@ const contentBlock = css`
     box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
     ${media.small} {
         padding: 1rem;
-        text-align: center;
     }
     h1 {
         color: ${palette.grey[900]};
