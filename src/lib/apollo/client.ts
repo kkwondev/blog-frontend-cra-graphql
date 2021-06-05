@@ -62,6 +62,5 @@ const client = new ApolloClient({
     link: concat(authMiddleware, link),
     cache,
 });
-(window as any).client = client;
 
 export default client;

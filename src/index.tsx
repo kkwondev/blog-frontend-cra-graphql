@@ -9,15 +9,15 @@ import reportWebVitals from './reportWebVitals';
 import client from './lib/apollo/client';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <RecoilRoot>
-            <ApolloProvider client={client}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </ApolloProvider>
-        </RecoilRoot>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <RecoilRoot>
+        <ApolloProvider client={client}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </ApolloProvider>
+    </RecoilRoot>,
+    // </React.StrictMode>
     document.getElementById('root')
 );
 

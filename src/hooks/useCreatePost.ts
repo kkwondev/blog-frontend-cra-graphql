@@ -14,20 +14,6 @@ export default function useCreatePost() {
     const client = useApolloClient();
     const [savePost] = useMutation(SAVE_POST, {
         variables: { post: write },
-        // update(cache, { data: { createPost } }) {
-        //     cache.modify({
-        //         fields: {
-        //             getPosts(existing) {
-        //                 console.log(existing.post);
-        //                 console.log(createPost);
-        //                 return {
-        //                     ...existing,
-        //                     post: [...existing.post, createPost.post],
-        //                 };
-        //             },
-        //         },
-        //     });
-        // },
     });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -112,10 +98,12 @@ export default function useCreatePost() {
             const response = await savePost();
             if (!response || !response.data) return;
             const { slug } = response.data.createPost.post;
+            await client.resetStore();
             history.push(`/post/${slug}`);
         } catch (e) {
             // eslint-disable-next-line no-alert
             alert('포스트 작성 실패');
+            console.error(e);
         }
     };
 
