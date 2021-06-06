@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
 interface SearchInputProps {
@@ -53,6 +54,22 @@ const serachInputWrap = css`
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 1.25rem;
+    }
+    ${media.small} {
+        height: 2.25rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        svg {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.75rem;
+        }
+        input {
+            flex: 1;
+            font-size: 1.125rem;
+            line-height: 1.5;
+            height: auto;
+        }
     }
 `;
 
