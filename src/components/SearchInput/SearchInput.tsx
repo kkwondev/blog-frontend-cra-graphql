@@ -1,18 +1,31 @@
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import palette from '../../lib/styles/palette';
 
 interface SearchInputProps {
     searchInput: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onKeyPress: () => any;
+    debouncedSearch: (keyword: string) => any;
 }
 
-function SearchInput({ searchInput, onChange }: SearchInputProps) {
+function SearchInput({ searchInput, onChange, onKeyPress, debouncedSearch }: SearchInputProps) {
+    useEffect(() => {
+        if (searchInput) {
+            debouncedSearch(searchInput);
+        }
+    }, [searchInput, debouncedSearch]);
     return (
         <div css={serachInputWrap}>
             <FiSearch size="22" color="#333" />
-            <input type="text" placeholder="검색어를 입력해주세요." value={searchInput} onChange={e => onChange(e)} />
+            <input
+                type="text"
+                placeholder="검색어를 입력해주세요."
+                value={searchInput}
+                onChange={e => onChange(e)}
+                onKeyPress={onKeyPress}
+            />
         </div>
     );
 }

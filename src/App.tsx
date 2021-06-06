@@ -32,7 +32,7 @@ function App() {
                     </AppLayout.Main>
                 </AppLayout>
             </Route>
-            <Route path={['/post/:slug', '/search']}>
+            <Route path={['/post/:slug', '/search', '/search/:search_str']}>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -41,7 +41,7 @@ function App() {
                         <Route path="/post/:slug">
                             <Post />
                         </Route>
-                        <Route path="/search">
+                        <Route path={['/search', '/search/:search_str']}>
                             <Search />
                         </Route>
                     </AppLayout.Post>

@@ -4,10 +4,15 @@ import SearchInput from '../../components/SearchInput';
 import useSearch from '../../hooks/useSearch';
 
 function Search() {
-    const { onChange, searchInput } = useSearch();
+    const { onChange, searchInput, onKeyPress, debouncedSearch } = useSearch();
     return (
         <>
-            <SearchInput onChange={onChange} searchInput={searchInput} />
+            <SearchInput
+                onChange={onChange}
+                searchInput={searchInput}
+                onKeyPress={onKeyPress}
+                debouncedSearch={debouncedSearch}
+            />
             <FlatPostItem />
         </>
     );
