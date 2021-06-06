@@ -14,6 +14,7 @@ export default function getPost() {
     const client = useApolloClient();
     const setWrite = useSetRecoilState(writeState);
     const { slug } = useParams<PostParams>();
+    console.log(slug);
     const { data, loading } = useQuery(GET_POST, { variables: { url_slug: slug } });
     const [tags, { data: tagsData, loading: tagsLoading }] = useLazyQuery(GET_POST_TAGS, {
         variables: { id: data?.readPost.post.id },

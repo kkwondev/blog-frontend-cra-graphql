@@ -137,3 +137,28 @@ export const DELETE_POST = gql`
         }
     }
 `;
+
+export const SEARCH_POST = gql`
+    query searchPost($keyword: String!) {
+        searchPost(keyword: $keyword) {
+            success
+            error
+            post {
+                id
+                title
+                content
+                slug
+                thumbnail_img
+                updatedAt
+                user {
+                    email
+                    nickname
+                    photo_url
+                }
+                category {
+                    name
+                }
+            }
+        }
+    }
+`;

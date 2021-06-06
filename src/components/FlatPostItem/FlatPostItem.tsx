@@ -1,28 +1,20 @@
 import { css } from '@emotion/react';
+import dayjs from 'dayjs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
-import TagsGridItem from '../TagsGridItem';
+import { responsePost } from '../../types/Post';
 
-function FlatPostItem() {
-    const post = {
-        id: 1,
-        title: `post#$1`,
-        slug: `post#$1`,
-        content: '가나다라마바사아차다타카치나마바사아',
-        thumnbnail_img:
-            'https://media.vlpt.us/images/juno7803/post/96b970e7-445c-48e2-9bc3-b6e45b55d538/recoil.png?w=640',
-        category: '개발',
-        createdAt: '2021-05-04',
-        tags: ['test1', 'test2', 'test3'],
-        user: {
-            email: 'kkwoncokr@gmail.com',
-            nickname: '강경원',
-            photo_url:
-                'https://lh5.googleusercontent.com/-lIncMlxHURw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmBNBT5zpjlqPWsuhydqKEfbGW3Tg/s100/photo.jpg',
-        },
-    };
+interface FlatPostItemProps {
+    post: responsePost;
+    loading: boolean;
+}
+
+function FlatPostItem({ post, loading }: FlatPostItemProps) {
+    if (!post) return null;
+
+    if (loading) return <p>loading...</p>;
     return (
         <div css={FlatPostItemWrap}>
             <div className="userInfo">
@@ -31,22 +23,22 @@ function FlatPostItem() {
                     <span>{post.user.nickname}</span>
                 </div>
             </div>
-            {post.thumnbnail_img && (
+            {post.thumbnail_img && (
                 <Link to={`/post/${post.slug}`}>
-                    <img src={post.thumnbnail_img} alt="post_img" className="postThumbnail" />
+                    <img src={post.thumbnail_img} alt="post_img" className="postThumbnail" />
                 </Link>
             )}
             <Link to={`/post/${post.slug}`}>
                 <h2>{post.title}</h2>
             </Link>
             <p>{post.content.substring(0, 20)}</p>
-            <div className="tags_wrap">
+            {/* <div className="tags_wrap">
                 {post.tags.map(tag => (
                     <TagsGridItem name={tag} />
                 ))}
-            </div>
+            </div> */}
             <div className="subInfo">
-                <span>{post.createdAt}</span>
+                <span>{dayjs(post.updatedAt).format('YYYY년 MM월 DD일 HH시 mm분')}</span>
             </div>
         </div>
     );
@@ -55,6 +47,10 @@ function FlatPostItem() {
 const FlatPostItemWrap = css`
     padding:4rem 2rem;
     box-sizing:border-box;
+    border-bottom:1px solid #ccc;
+    &:last-child {
+        border-bottom: none;
+    }
     ${media.small} {
         padding-top: 2rem;
         padding-bottom: 2rem;

@@ -1,17 +1,11 @@
 import { useCallback, useMemo } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { debounce } from 'throttle-debounce';
 import { searchInputState } from '../atoms/searchPostState';
 
-interface SearchParams {
-    search_str: string;
-}
-
 export default function useSearch() {
-    const params = useParams<SearchParams>();
     const history = useHistory();
-    const search = params.search_str;
     const [searchInput, setSearchInput] = useRecoilState(searchInputState);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +14,9 @@ export default function useSearch() {
 
     const onSearch = useCallback(
         (search: string) => {
-            history.replace(`/search/${search}`);
+            history.push(`/search/${search}`);
         },
-        [history, search]
+        [history]
     );
 
     const debouncedSearch = useMemo(() => {

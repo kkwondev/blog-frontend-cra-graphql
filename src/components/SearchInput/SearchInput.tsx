@@ -6,7 +6,7 @@ import palette from '../../lib/styles/palette';
 interface SearchInputProps {
     searchInput: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onKeyPress: () => any;
+    onKeyPress: (e: React.KeyboardEvent) => void;
     debouncedSearch: (keyword: string) => any;
 }
 
