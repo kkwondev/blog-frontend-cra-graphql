@@ -58,9 +58,17 @@ const card = css`
         box-shadow: 0px 1.125rem 1.125rem rgba(67, 67, 67, 0.08);
     }
     .thumbnail {
+        padding-top: 52.1921%;
         width: 100%;
+        position:relative;
         img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
             width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
         }
     }
     .content {
@@ -102,7 +110,7 @@ const card = css`
         font-size: 0.75rem;
         line-height: 1.5;
         justify-content: space-between;
-        letter-spacing:-1.3px;
+        letter-spacing:-1.1px;
         .userInfo {
             text-decoration: none;
             color: inherit;
@@ -111,8 +119,11 @@ const card = css`
             align-items: center;
         }
         .category {
+            display:flex;
+            align-items:center;
             strong{
                 font-weight:600;
+                margin-left:0.2rem;
             }
         }
         img {
