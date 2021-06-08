@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { RouteComponentProps, useParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
@@ -7,9 +8,12 @@ import PostWriteButton from '../../components/PostWriteButton';
 import getCategoryPosts from '../../hooks/query/category/getCategoryPosts';
 
 // export interface CategoriesProps {}
+interface CategoriesParams {
+    name: string;
+}
 function Categories() {
+    const { name } = useParams<CategoriesParams>();
     const { data, onLoadMore, hasMorePost, loading } = getCategoryPosts();
-    console.log(data);
     const user = useRecoilValue(userState);
 
     const handleScroll = () => {
@@ -31,6 +35,9 @@ function Categories() {
 
     return (
         <>
+            <Helmet>
+                <title>{name} 포스트 - klog</title>
+            </Helmet>
             <PostsGrid posts={data || []} loading={!data || loading} />
             {user ? <PostWriteButton /> : null}
         </>

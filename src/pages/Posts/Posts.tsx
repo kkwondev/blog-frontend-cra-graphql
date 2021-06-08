@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/authState';
 import PostsGrid from '../../components/PostsGrid';
@@ -30,6 +31,9 @@ function Posts() {
 
     return (
         <>
+            <Helmet>
+                <title>전체 포스트 - klog</title>
+            </Helmet>
             <PostsGrid posts={data || []} loading={!data || loading} />
             {user ? <PostWriteButton /> : null}
         </>

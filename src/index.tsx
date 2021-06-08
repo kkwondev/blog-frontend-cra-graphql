@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { RecoilRoot } from 'recoil';
 import { ApolloProvider } from '@apollo/client';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,13 +11,15 @@ import client from './lib/apollo/client';
 
 ReactDOM.render(
     // <React.StrictMode>
-    <RecoilRoot>
-        <ApolloProvider client={client}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </ApolloProvider>
-    </RecoilRoot>,
+    <HelmetProvider>
+        <RecoilRoot>
+            <ApolloProvider client={client}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </ApolloProvider>
+        </RecoilRoot>
+    </HelmetProvider>,
     // </React.StrictMode>
     document.getElementById('root')
 );

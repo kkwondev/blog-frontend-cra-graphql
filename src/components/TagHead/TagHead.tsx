@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import media from '../../lib/styles/media';
 
-interface TagParams {
+export interface TagParams {
     name: string;
 }
 

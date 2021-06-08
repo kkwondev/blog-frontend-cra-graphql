@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import PostContent from '../../components/PostContent';
 import PostHead from '../../components/PostHead';
 import getPost from '../../hooks/query/post/getPost';
@@ -25,6 +26,7 @@ function Post() {
     };
     return (
         <>
+            <Helmet>{data?.readPost && <title>{data?.readPost.post.title} - klog</title>}</Helmet>
             <PostHead
                 post={data?.readPost.post}
                 postLoading={!data || loading}
