@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { css } from '@emotion/react';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -7,7 +8,8 @@ import media from '../../lib/styles/media';
 export interface NavProps {}
 
 function Nav({ match }: RouteComponentProps) {
-    const { data } = getCategory();
+    const { data, refetch } = getCategory();
+    const client = useApolloClient();
     if (!data) return null;
     return (
         <div css={Block}>
@@ -22,6 +24,7 @@ function Nav({ match }: RouteComponentProps) {
                     <li key={index}>
                         <Link
                             to={`/categories/${name}`}
+                            onClick={() => client.resetStore()}
                             className={match.url === `/categories/${name}` ? 'active' : ''}
                         >
                             {name}
