@@ -29,7 +29,7 @@ function Search() {
                 <FlatPostItem key={searchPost.id} post={searchPost} />
             ))} */}
 
-            {data?.post === null ? (
+            {data?.post === null || data?.post === [] ? (
                 <p style={{ padding: '1rem' }}>{data.error}</p>
             ) : (
                 data?.post.map((searchPost: any) => (

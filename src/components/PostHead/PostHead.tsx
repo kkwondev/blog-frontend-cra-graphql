@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 import { css } from '@emotion/react';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -52,7 +53,7 @@ function PostHead({
                 <span className="separator">&middot;</span>
                 <span>{dayjs(post.updatedAt).format('YYYY년 MM월 DD일 HH시 mm분')}</span>
             </div>
-            {tags && <TagsGrid tags={tags} loading={tagsLoading} />}
+            {tags && <TagsGrid tags={tags} loading={tagsLoading} link={true} />}
             {post.thumbnail_img ? (
                 <div className="thumbnail">
                     <img src={post.thumbnail_img} alt="post-thumbnail" />

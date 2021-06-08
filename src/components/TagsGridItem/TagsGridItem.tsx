@@ -1,15 +1,27 @@
 import { css } from '@emotion/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
 import palette from '../../lib/styles/palette';
 
 interface TagGridItemProps {
     name: string;
     // eslint-disable-next-line react/require-default-props
+    link?: boolean;
+    // eslint-disable-next-line react/require-default-props
     onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function TagsGridItem({ name, onClick }: TagGridItemProps) {
+function TagsGridItem({ name, onClick, link }: TagGridItemProps) {
+    if (link) {
+        return (
+            <Link to={`/tag/${name}`}>
+                <div css={tagStyle} onClick={onClick}>
+                    {name}
+                </div>
+            </Link>
+        );
+    }
     return (
         <div css={tagStyle} onClick={onClick}>
             {name}

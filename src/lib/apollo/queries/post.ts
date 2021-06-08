@@ -162,3 +162,28 @@ export const SEARCH_POST = gql`
         }
     }
 `;
+
+export const GET_TAG_POST = gql`
+    query getTagPost($name: String!) {
+        getTagPost(name: $name) {
+            success
+            error
+            post {
+                id
+                title
+                content
+                slug
+                thumbnail_img
+                updatedAt
+                user {
+                    email
+                    nickname
+                    photo_url
+                }
+                category {
+                    name
+                }
+            }
+        }
+    }
+`;

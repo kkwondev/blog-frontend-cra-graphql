@@ -107,7 +107,7 @@ const postStyle = css`
     ${media.small} {
         width: 100%;
         // padding: 0 1rem;
-        // padding-top: 6rem;
+        padding-top: 6rem;
         box-sizing: border-box;
     }
 `;

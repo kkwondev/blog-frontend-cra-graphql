@@ -8,6 +8,7 @@ import Categories from './pages/Categories';
 import Post from './pages/Post';
 import Posts from './pages/Posts';
 import Search from './pages/Search';
+import Tag from './pages/Tag';
 import Write from './pages/Write';
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
                     </AppLayout.Main>
                 </AppLayout>
             </Route>
-            <Route path={['/post/:slug', '/search', '/search/:search']}>
+            <Route path={['/post/:slug', '/search', '/search/:search', '/tag/:name']}>
                 <AppLayout>
                     <AppLayout.Header>
                         <Header />
@@ -43,6 +44,9 @@ function App() {
                         </Route>
                         <Route path={['/search', '/search/:search']} exact>
                             <Search />
+                        </Route>
+                        <Route path="/tag/:name">
+                            <Tag />
                         </Route>
                     </AppLayout.Post>
                 </AppLayout>
