@@ -29,7 +29,8 @@ export default function useAuth() {
             })
             .catch(e => {
                 // eslint-disable-next-line no-alert
-                alert(e.message);
+                alert('관리자로 등록된 아이디로만 로그인이 가능합니다. 관리자 아이디로 시도 해주세요.');
+                console.debug(e);
             });
     };
 
